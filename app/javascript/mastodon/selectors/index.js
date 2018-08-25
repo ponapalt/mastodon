@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { List as ImmutableList } from 'immutable';
+import { me } from '../initial_state';
 
 const getAccountBase         = (state, id) => state.getIn(['accounts', id], null);
 const getAccountCounters     = (state, id) => state.getIn(['accounts_counters', id], null);
@@ -45,7 +46,21 @@ export const regexFromFilters = filters => {
     return null;
   }
 
-  return new RegExp(filters.map(filter => escapeRegExp(filter.get('phrase'))).map(expr => `\\b${expr}\\b`).join('|'), 'i');
+  return new RegExp(filters.map(filter => {
+    let expr = escapeRegExp(filter.get('phrase'));
+
+    if (filter.get('whole_word')) {
+      if (/^[\w]/.test(expr)) {
+        expr = `\\b${expr}`;
+      }
+
+      if (/[\w]$/.test(expr)) {
+        expr = `${expr}\\b`;
+      }
+    }
+
+    return expr;
+  }).join('|'), 'i');
 };
 
 export const makeGetStatus = () => {
@@ -69,7 +84,7 @@ export const makeGetStatus = () => {
         statusReblog = null;
       }
 
-      const regex    = regexFromFilters(filters);
+      const regex    = (accountReblog || accountBase).get('id') !== me && regexFromFilters(filters);
       const filtered = regex && regex.test(statusBase.get('reblog') ? statusReblog.get('search_index') : statusBase.get('search_index'));
 
       return statusBase.withMutations(map => {
