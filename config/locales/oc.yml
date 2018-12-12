@@ -48,6 +48,7 @@ oc:
       other: Seguidors
     following: Abonaments
     joined: Arribèt en %{date}
+    last_active: darrièra activitat
     link_verified_on: La proprietat d’aqueste ligam foguèt verificada lo %{date}
     media: Mèdias
     moved_html: "%{name} a mudat a %{new_profile_link} :"
@@ -111,12 +112,13 @@ oc:
         remote: Alonhats
         title: Emplaçament
       login_status: Estat formulari de connexion
-      media_attachments: Mèdias ajustats
+      media_attachments: Mèdias enviats
       memorialize: Passar en memorial
       moderation:
-        all: Tot
-        silenced: Rescondut
-        suspended: Suspendut
+        active: Actius
+        all: Totes
+        silenced: Resconduts
+        suspended: Suspenduts
         title: Moderacion
       moderation_notes: Nòtas de moderacion
       most_recent_activity: Activitat mai recenta
@@ -260,7 +262,7 @@ oc:
       reject_media: Regetar los fichièrs mèdias
       reject_media_hint: Lèva los fichièrs gardats localament e regèta las demandas de telecargament dins lo futur. Servís pas a res per las suspensions
       reject_reports: Regetar los senhalaments
-      reject_reports_hint: Ignorer totes los senhalaments que venon d’aqueste domeni. Pas pertiment per las suspensions
+      reject_reports_hint: Ignorar totes los senhalaments que venon d’aqueste domeni. Pas pertiment per las suspensions
       severities:
         noop: Cap
         silence: Silenci
@@ -343,7 +345,7 @@ oc:
       reported_account: Compte senhalat
       reported_by: Senhalat per
       resolved: Resolgut
-      resolved_msg: Rapòrt corrèctament resolgut  !
+      resolved_msg: Rapòrt corrèctament resolgut !
       status: Estatut
       title: Senhalament
       unassign: Levar
@@ -352,7 +354,7 @@ oc:
     settings:
       activity_api_enabled:
         desc_html: Nombre d’estatuts publicats, d’utilizaires actius e de novèlas inscripcions en rapòrt setmanièr
-        title: Publica las estatisticas totalas de l’activitat dels utilizaires
+        title: Publicar las estatisticas totalas de l’activitat dels utilizaires
       bootstrap_timeline_accounts:
         desc_html: Separatz los noms d’utilizaire amb de virgula. Pas que los comptes locals e pas clavats foncionaràn. Se lo camp es void los admins seràn selecionats.
         title: Per defaut los nòuvenguts sègon
@@ -370,13 +372,13 @@ oc:
         title: Imatge de la mascòta
       peers_api_enabled:
         desc_html: Noms de domeni qu’aquesta instància a trobats pel fediverse
-        title: Publica la lista de las instàncias conegudas
+        title: Publicar la lista de las instàncias conegudas
       preview_sensitive_media:
         desc_html: Los apercebuts dels ligams sus los autres sites mostraràn una vinheta encara que lo mèdia siá marcat coma sensible
         title: Mostrar los mèdias sensibles dins los apercebuts OpenGraph
       registrations:
         closed_message:
-          desc_html: Afichat sus las pagina d’acuèlh quand las inscripcions son tampadas.<br>Podètz utilizar de balisas HTML
+          desc_html: Mostrat sus las pagina d’acuèlh quand las inscripcions son tampadas.<br>Podètz utilizar de balisas HTML
           title: Messatge de barradura de las inscripcions
         deletion:
           desc_html: Autorizar lo monde a suprimir lor compte
@@ -439,6 +441,14 @@ oc:
       proceed: Tractat
       title: Suspension de %{acct}
       warning_html: 'Suspendre aqueste compte suprimirà <strong>irreversiblament</strong> las donadas del compte, aquò compren :'
+    tags:
+      accounts: Comptes
+      hidden: Amagat
+      hide: Amagar dins l’annuari
+      name: Etiqueta
+      title: Etiquetas
+      unhide: Aparéisser dins l’annuari
+      visible: Visible
     title: Administracion
   admin_mailer:
     new_report:
@@ -573,6 +583,15 @@ oc:
     success_msg: Compte ben suprimit
     warning_html: La supression del contengut d’aquesta instància es sola assegurada. Lo contengut fòrça partejat daissarà probablament de traças. Los servidors fòra-linha e los que vos sègon pas mai auràn pas la mesa a jorn de lor basa de donada.
     warning_title: Disponibilitat del contengut difusat
+  directories:
+    directory: Annuari de perfils
+    explanation: Trobar d’utilizaires segon lor interèsses
+    explore_mastodon: Explorar %{title}
+    most_popular: Mai populars
+    most_recently_active: Mai actius recentament
+    people:
+      one: "%{count} persona"
+      other: "%{count} personas"
   errors:
     '403': Avètz pas l’autorizacion de veire aquesta pagina.
     '404': La pagina que recercatz existís pas.
@@ -663,7 +682,7 @@ oc:
       one: 1 persona
       other: "%{count} personas"
     max_uses_prompt: Cap de limit
-    prompt: Generatz e partejatz los ligams per donar accès a aquesta instància
+    prompt: Generar e partejar los ligams per donar accès a aquesta instància
     table:
       expires_at: Expirats
       uses: Usatges
