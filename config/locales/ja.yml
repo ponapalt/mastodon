@@ -20,7 +20,7 @@ ja:
     extended_description_html: |
       <h3>ルールを書くのに適した場所</h3>
       <p>詳細説明が設定されていません。</p>
-    federation_hint_html: "%{instance} にアカウントがあればどの互換性のあるサーバーのユーザーでもフォローできるでしょう。<br>スパム避けのため<strong>登録ボタンを押すとに認証画面が出ます。</strong> <a href="%{rules_path}">サーバーのルール</a> の中にユーザー名とパスワードの説明がありますので入力してください。"
+    federation_hint_html: "%{instance} にアカウントがあればどの互換性のあるサーバーのユーザーでもフォローできるでしょう。<br>スパム避けのため<strong>登録ボタンを押すとに認証画面が出ます。</strong>「サーバーのルール」の中にユーザー名とパスワードの説明がありますので入力してください。"
     generic_description: "%{domain} は、Mastodon サーバーの一つです"
     get_apps: モバイルアプリを試す
     hosted_on: Mastodon hosted on %{domain}
