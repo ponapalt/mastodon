@@ -20,7 +20,7 @@ ja:
     extended_description_html: |
       <h3>ルールを書くのに適した場所</h3>
       <p>詳細説明が設定されていません。</p>
-    federation_hint_html: "%{instance} にアカウントがあればどの互換性のあるサーバーのユーザーでもフォローできるでしょう。"
+    federation_hint_html: "%{instance} にアカウントがあればどの互換性のあるサーバーのユーザーでもフォローできるでしょう。<br>スパム避けのため<strong>登録ボタンを押すとに認証画面が出ます。</strong> <a href="%{rules_path}">サーバーのルール</a> の中にユーザー名とパスワードの説明がありますので入力してください。"
     generic_description: "%{domain} は、Mastodon サーバーの一つです"
     get_apps: モバイルアプリを試す
     hosted_on: Mastodon hosted on %{domain}
@@ -513,7 +513,6 @@ ja:
     warning: このデータは気をつけて取り扱ってください。他の人と共有しないでください！
     your_token: アクセストークン
   auth:
-    agreement_html: スパム避けのため<strong>登録ボタンを押すとに認証画面が出ます。</strong> <a href="%{rules_path}">サーバーのルール</a> の中にユーザー名とパスワードの説明がありますので入力してください。<br>登録するをクリックすると <a href="%{rules_path}">サーバーのルール</a> と <a href="%{terms_path}">プライバシーポリシー</a> に従うことに同意したことになります。
     apply_for_account: 登録を申請する
     change_password: パスワード
     checkbox_agreement_html: <a href="%{rules_path}" target="_blank">サーバーのルール</a> と <a href="%{terms_path}" target="_blank">プライバシーポリシー</a> に同意します
