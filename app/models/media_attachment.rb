@@ -69,9 +69,13 @@ class MediaAttachment < ApplicationRecord
 
   AUDIO_STYLES = {
     original: {
-      format: 'ogg',
-      content_type: 'audio/ogg',
-      convert_options: {},
+      format: 'mp3',
+      content_type: 'audio/mpeg',
+      convert_options: {
+        output: {
+          'q:a' => 2,
+        },
+      },
     },
   }.freeze
 
@@ -173,6 +177,14 @@ class MediaAttachment < ApplicationRecord
   before_save :set_meta
 
   class << self
+    def supported_mime_types
+      IMAGE_MIME_TYPES + VIDEO_MIME_TYPES + AUDIO_MIME_TYPES
+    end
+
+    def supported_file_extensions
+      IMAGE_FILE_EXTENSIONS + VIDEO_FILE_EXTENSIONS + AUDIO_FILE_EXTENSIONS
+    end
+
     private
 
     def file_styles(f)
