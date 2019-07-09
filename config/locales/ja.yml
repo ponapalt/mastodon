@@ -998,8 +998,10 @@ ja:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
     mastodon-light: Mastodon (ライト)
-    instance-ticker-type-0: インスタンス・ティッカー Type-0
-    instance-ticker-type-1: インスタンス・ティッカー Type-1
+    instance-ticker-type-0: Mastodon (ダーク) + Ticker0
+    instance-ticker-type-0-light: Mastodon (ライト) + Ticker0
+    instance-ticker-type-1: Mastodon (ダーク) + Ticker1
+    instance-ticker-type-1-light: Mastodon (ライト) + Ticker1
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
