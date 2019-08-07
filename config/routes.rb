@@ -155,7 +155,11 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#index'
 
     resources :domain_allows, only: [:new, :create, :show, :destroy]
-    resources :domain_blocks, only: [:new, :create, :show, :destroy]
+    resources :domain_blocks, only: [:new, :create, :show, :destroy, :update] do
+      member do
+        get :edit
+      end
+    end
     resources :email_domain_blocks, only: [:index, :new, :create, :destroy]
     resources :action_logs, only: [:index]
     resources :warning_presets, except: [:new]
@@ -243,13 +247,7 @@ Rails.application.routes.draw do
     end
 
     resources :account_moderation_notes, only: [:create, :destroy]
-
-    resources :tags, only: [:index] do
-      member do
-        post :hide
-        post :unhide
-      end
-    end
+    resources :tags, only: [:index, :show, :update]
   end
 
   get '/admin', to: redirect('/admin/dashboard', status: 302)
@@ -311,6 +309,7 @@ Rails.application.routes.draw do
       resources :mutes,        only: [:index]
       resources :favourites,   only: [:index]
       resources :reports,      only: [:create]
+      resources :trends,       only: [:index]
       resources :filters,      only: [:index, :create, :show, :update, :destroy]
       resources :endorsements, only: [:index]
 
