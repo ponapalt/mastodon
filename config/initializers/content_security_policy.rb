@@ -11,6 +11,8 @@ base_host = Rails.configuration.x.web_domain
 assets_host   = Rails.configuration.action_controller.asset_host
 assets_host ||= host_to_url(base_host)
 
+instance_ticker_host = "https://pla.jp"
+
 media_host   = host_to_url(ENV['S3_ALIAS_HOST'])
 media_host ||= host_to_url(ENV['S3_CLOUDFRONT_HOST'])
 media_host ||= host_to_url(ENV['S3_HOSTNAME']) if ENV['S3_ENABLED'] == 'true'
@@ -22,7 +24,7 @@ Rails.application.config.content_security_policy do |p|
   p.frame_ancestors :none
   p.font_src        :self, assets_host
   p.img_src         :self, :https, :data, :blob, assets_host
-  p.style_src       :self, :unsafe_inline, assets_host, "https://wee.jp"
+  p.style_src       :self, :unsafe_inline, assets_host, instance_ticker_host
   p.media_src       :self, :https, :data, assets_host
   p.frame_src       :self, :https
   p.manifest_src    :self, assets_host
