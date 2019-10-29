@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 ruby '>= 2.4.0', '< 2.7.0'
 
-gem 'pkg-config', '~> 1.3'
+gem 'pkg-config', '~> 1.4'
 
 gem 'puma', '~> 4.2'
 gem 'rails', '~> 5.2.3'
@@ -116,7 +116,7 @@ end
 group :test do
   gem 'capybara', '~> 3.29'
   gem 'climate_control', '~> 0.2'
-  gem 'faker', '~> 2.5'
+  gem 'faker', '~> 2.6'
   gem 'microformats', '~> 4.1'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-sidekiq', '~> 3.0'
@@ -126,7 +126,7 @@ group :test do
 end
 
 group :development do
-  gem 'active_record_query_trace', '~> 1.6'
+  gem 'active_record_query_trace', '~> 1.7'
   gem 'annotate', '~> 2.7'
   gem 'better_errors', '~> 2.5'
   gem 'binding_of_caller', '~> 0.7'
