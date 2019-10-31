@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+
+=begin
+
+
+
 class StatusesIndex < Chewy::Index
   settings index: { refresh_interval: '15m' }, analysis: {
     filter: {
@@ -30,6 +35,34 @@ class StatusesIndex < Chewy::Index
       },
     },
   }
+
+
+
+=end
+
+
+class StatusesIndex < Chewy::Index
+  settings index: { refresh_interval: '15m' }, analysis: {
+    tokenizer: {
+      kuromoji_user_dict: {
+        type: 'kuromoji_tokenizer',
+        user_dictionary: 'userdic.txt',
+      },
+    },
+    analyzer: {
+      content: {
+        type: 'custom',
+        tokenizer: 'kuromoji_user_dict',
+        filter: %w(
+          kuromoji_baseform
+          kuromoji_stemmer
+          cjk_width
+          lowercase
+        ),
+      },
+    },
+  }
+
 
   define_type ::Status.unscoped.kept.without_reblogs.includes(:media_attachments), delete_if: ->(status) { status.searchable_by.empty? } do
     crutch :mentions do |collection|
