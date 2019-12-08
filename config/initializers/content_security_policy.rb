@@ -11,7 +11,7 @@ base_host = Rails.configuration.x.web_domain
 assets_host   = Rails.configuration.action_controller.asset_host
 assets_host ||= host_to_url(base_host)
 
-instance_ticker_host = "https://pla.jp"
+instance_ticker_host = "https://wee.jp"
 
 media_host   = host_to_url(ENV['S3_ALIAS_HOST'])
 media_host ||= host_to_url(ENV['S3_CLOUDFRONT_HOST'])
