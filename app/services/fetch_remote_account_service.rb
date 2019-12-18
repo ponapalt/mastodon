@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FetchRemoteStatusService < BaseService
+class FetchRemoteAccountService < BaseService
   def call(url, prefetched_body = nil, protocol = :ostatus)
     if prefetched_body.nil?
       resource_url, resource_options, protocol = FetchResourceService.new.call(url)
@@ -11,7 +11,7 @@ class FetchRemoteStatusService < BaseService
 
     case protocol
     when :activitypub
-      ActivityPub::FetchRemoteStatusService.new.call(resource_url, **resource_options)
+      ActivityPub::FetchRemoteAccountService.new.call(resource_url, **resource_options)
     end
   end
 end

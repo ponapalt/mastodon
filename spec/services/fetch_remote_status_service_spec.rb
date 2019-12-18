@@ -16,8 +16,9 @@ RSpec.describe FetchRemoteStatusService, type: :service do
   end
 
   context 'protocol is :activitypub' do
-    subject { described_class.new.call(note[:id], prefetched_body) }
+    subject { described_class.new.call(note[:id], prefetched_body, protocol) }
     let(:prefetched_body) { Oj.dump(note) }
+    let(:protocol) { :activitypub }
 
     before do
       account.update(uri: ActivityPub::TagManager.instance.uri_for(account))
@@ -58,7 +59,7 @@ RSpec.describe FetchRemoteStatusService, type: :service do
         </entry>
       XML
 
-      expect(subject.call('https://fake.domain/foo', status_body)).to be_nil
+      expect(subject.call('https://fake.domain/foo', status_body, :ostatus)).to be_nil
     end
 
     it 'does not create status with wrong id when id uses http format' do
@@ -80,7 +81,7 @@ RSpec.describe FetchRemoteStatusService, type: :service do
         </entry>
       XML
 
-      expect(subject.call('https://real.domain/statuses/456', status_body)).to be_nil
+      expect(subject.call('https://real.domain/statuses/456', status_body, :ostatus)).to be_nil
     end
   end
 end

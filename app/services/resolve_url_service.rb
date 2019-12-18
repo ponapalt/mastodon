@@ -19,9 +19,9 @@ class ResolveURLService < BaseService
 
   def process_url
     if equals_or_includes_any?(type, ActivityPub::FetchRemoteAccountService::SUPPORTED_TYPES)
-      ActivityPub::FetchRemoteAccountService.new.call(resource_url, prefetched_body: body)
+      FetchRemoteAccountService.new.call(resource_url, body, protocol)
     elsif equals_or_includes_any?(type, ActivityPub::Activity::Create::SUPPORTED_TYPES + ActivityPub::Activity::Create::CONVERTED_TYPES)
-      status = FetchRemoteStatusService.new.call(resource_url, body)
+      status = FetchRemoteStatusService.new.call(resource_url, body, protocol)
       authorize_with @on_behalf_of, status, :show? unless status.nil?
       status
     elsif fetched_resource.nil? && @on_behalf_of.present?
@@ -45,8 +45,12 @@ class ResolveURLService < BaseService
     fetched_resource.second[:prefetched_body]
   end
 
+  def protocol
+    fetched_resource.third
+  end
+
   def type
-    json_data['type']
+    return json_data['type'] if protocol == :activitypub
   end
 
   def json_data
