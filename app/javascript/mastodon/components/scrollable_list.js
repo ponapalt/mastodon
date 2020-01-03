@@ -36,8 +36,6 @@ export default class ScrollableList extends PureComponent {
     emptyMessage: PropTypes.node,
     children: PropTypes.node,
     bindToDocument: PropTypes.bool,
-    currentlyViewing: PropTypes.number,
-    updateCurrentlyViewing: PropTypes.func,
   };
 
   static defaultProps = {
@@ -210,10 +208,13 @@ export default class ScrollableList extends PureComponent {
   }
 
   attachIntersectionObserver () {
-    this.intersectionObserverWrapper.connect({
+    let nodeOptions = {
       root: this.node,
       rootMargin: '300% 0px',
-    });
+    };
+
+    this.intersectionObserverWrapper
+      .connect(this.props.bindToDocument ? {} : nodeOptions);
   }
 
   detachIntersectionObserver () {
@@ -311,8 +312,6 @@ export default class ScrollableList extends PureComponent {
                 listLength={childrenCount}
                 intersectionObserverWrapper={this.intersectionObserverWrapper}
                 saveHeightKey={trackScroll ? `${this.context.router.route.location.key}:${scrollKey}` : null}
-                currentlyViewing={this.props.currentlyViewing}
-                updateCurrentlyViewing={this.props.updateCurrentlyViewing}
               >
                 {React.cloneElement(child, {
                   getScrollPosition: this.getScrollPosition,
