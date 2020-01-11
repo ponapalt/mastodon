@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '>= 2.4.0', '< 2.7.0'
+ruby '>= 2.4.0', '< 3.0.0'
 
 gem 'pkg-config', '~> 1.4'
 
@@ -9,6 +9,9 @@ gem 'puma', '~> 4.3'
 gem 'rails', '~> 5.2.4'
 gem 'sprockets', '~> 3.7.2'
 gem 'thor', '~> 0.20'
+
+gem 'thwait', '~> 0.1.0'
+gem 'e2mmap', '~> 0.1.0'
 
 gem 'hamlit-rails', '~> 0.2'
 gem 'pg', '~> 1.2'
@@ -102,7 +105,7 @@ gem 'webpush'
 
 gem 'json-ld', git: 'https://github.com/ruby-rdf/json-ld.git', ref: 'e742697a0906e74e8bb777ef98137bc3955d981d'
 gem 'json-ld-preloaded', '~> 3.0'
-gem 'rdf-normalize', '~> 0.3'
+gem 'rdf-normalize', '~> 0.4'
 
 group :development, :test do
   gem 'fabrication', '~> 2.21'
