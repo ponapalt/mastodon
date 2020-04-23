@@ -157,7 +157,7 @@ class Tag < ApplicationRecord
     private
 
     def normalize(str)
-      str.gsub(/\A#/, '').unicode_normalize(:nfc)
+      str.gsub(/\A#/, '')
     end
   end
 
