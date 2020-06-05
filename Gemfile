@@ -50,6 +50,7 @@ gem 'omniauth', '~> 1.9'
 
 gem 'discard', '~> 1.2'
 gem 'doorkeeper', '~> 5.4'
+gem 'ed25519', '~> 1.2'
 gem 'fast_blank', '~> 1.0'
 gem 'fastimage'
 gem 'goldfinger', '~> 2.1'
@@ -96,7 +97,6 @@ gem 'simple_form', '~> 5.0'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
 gem 'stoplight', '~> 2.2.0'
 gem 'strong_migrations', '~> 0.6'
-gem 'tty-command', '~> 0.9', require: false
 gem 'tty-prompt', '~> 0.21', require: false
 gem 'twitter-text', '~> 1.14'
 gem 'tzinfo-data', '~> 1.2020'
