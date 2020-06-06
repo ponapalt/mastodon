@@ -20,7 +20,7 @@ gem 'makara', '~> 0.4'
 gem 'pghero', '~> 2.5'
 gem 'dotenv-rails', '~> 2.7'
 
-gem 'aws-sdk-s3', '~> 1.66', require: false
+gem 'aws-sdk-s3', '~> 1.67', require: false
 gem 'fog-core', '<= 2.1.0'
 gem 'fog-openstack', '~> 0.3', require: false
 gem 'paperclip', '~> 6.0'
@@ -142,7 +142,7 @@ group :development do
   gem 'letter_opener', '~> 1.7'
   gem 'letter_opener_web', '~> 1.4'
   gem 'memory_profiler'
-  gem 'rubocop', '~> 0.84', require: false
+  gem 'rubocop', '~> 0.85', require: false
   gem 'rubocop-rails', '~> 2.5', require: false
   gem 'brakeman', '~> 4.8', require: false
   gem 'bundler-audit', '~> 0.6', require: false
