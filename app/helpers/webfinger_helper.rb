@@ -28,7 +28,7 @@ module WebfingerHelper
 
       timeout_options: {
         write_timeout: 10,
-        connect_timeout: 5,
+        connect_timeout: 100,
         read_timeout: 10,
       },
     }
