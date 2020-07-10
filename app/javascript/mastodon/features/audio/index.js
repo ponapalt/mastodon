@@ -21,6 +21,9 @@ const messages = defineMessages({
   download: { id: 'video.download', defaultMessage: 'Download file' },
 });
 
+// Some parts of the canvas rendering code in this file have been adopted from
+// https://codepen.io/alexdevp/full/RNELPV by Alex Permyakov
+
 const TICK_SIZE = 10;
 const PADDING   = 180;
 
@@ -103,7 +106,7 @@ class Audio extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (prevProps.src !== this.props.src || this.state.width !== prevState.width || this.state.height !== prevState.height) {
+    if (prevProps.src !== this.props.src || this.state.width !== prevState.width || this.state.height !== prevState.height || prevProps.accentColor !== this.props.accentColor) {
       this._clear();
       this._draw();
     }
