@@ -18,7 +18,6 @@ module Admin
       @version               = Mastodon::Version.to_s
       @database_version      = ActiveRecord::Base.connection.execute('SELECT VERSION()').first['version'].match(/\A(?:PostgreSQL |)([^\s]+).*\z/)[1]
       @redis_version         = redis_info['redis_version']
-      @nodejs_version        = `node -v`
       @reports_count         = Report.unresolved.count
       @queue_backlog         = Sidekiq::Stats.new.enqueued
       @recent_users          = User.confirmed.recent.includes(:account).limit(8)
