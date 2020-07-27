@@ -11,16 +11,16 @@ gem 'sprockets', '~> 3.7.2'
 gem 'thor', '~> 0.20'
 gem 'rack', '~> 2.2.3'
 
-gem 'thwait', '~> 0.1.0'
+gem 'thwait', '~> 0.2.0'
 gem 'e2mmap', '~> 0.1.0'
 
 gem 'hamlit-rails', '~> 0.2'
 gem 'pg', '~> 1.2'
 gem 'makara', '~> 0.4'
-gem 'pghero', '~> 2.5'
+gem 'pghero', '~> 2.6'
 gem 'dotenv-rails', '~> 2.7'
 
-gem 'aws-sdk-s3', '~> 1.73', require: false
+gem 'aws-sdk-s3', '~> 1.75', require: false
 gem 'fog-core', '<= 2.1.0'
 gem 'fog-openstack', '~> 0.3', require: false
 gem 'paperclip', '~> 6.0'
@@ -96,7 +96,7 @@ gem 'sidekiq-statistic', '~>1.4'
 gem 'simple-navigation', '~> 4.1'
 gem 'simple_form', '~> 5.0'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
-gem 'stoplight', '~> 2.2.0'
+gem 'stoplight', '~> 2.2.1'
 gem 'strong_migrations', '~> 0.6'
 gem 'tty-prompt', '~> 0.21', require: false
 gem 'twitter-text', '~> 1.14'
@@ -130,7 +130,7 @@ group :test do
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'simplecov', '~> 0.18', require: false
   gem 'webmock', '~> 3.8'
-  gem 'parallel_tests', '~> 3.0'
+  gem 'parallel_tests', '~> 3.1'
   gem 'rspec_junit_formatter', '~> 0.4'
 end
 
@@ -150,7 +150,7 @@ group :development do
 
   gem 'capistrano', '~> 3.14'
   gem 'capistrano-rails', '~> 1.5'
-  gem 'capistrano-rbenv', '~> 2.1'
+  gem 'capistrano-rbenv', '~> 2.2'
   gem 'capistrano-yarn', '~> 2.0'
 
   gem 'stackprof'
