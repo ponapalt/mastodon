@@ -10,7 +10,7 @@ else
 end
 
 environment ENV.fetch('RAILS_ENV') { 'development' }
-workers     ENV.fetch('WEB_CONCURRENCY') { 2 }
+#workers     ENV.fetch('WEB_CONCURRENCY') { 2 }
 
 worker_num = ENV.fetch('WEB_CONCURRENCY') { 2 }.to_i
 
@@ -22,6 +22,8 @@ if worker_num > 1 then
       ActiveRecord::Base.establish_connection
     end
   end
+else
+  workers 0
 end
 
 =begin
