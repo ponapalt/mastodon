@@ -8,7 +8,7 @@ gem 'pkg-config', '~> 1.4'
 gem 'puma', '~> 4.3'
 gem 'rails', '~> 5.2.4.4'
 gem 'sprockets', '~> 3.7.2'
-gem 'thor', '~> 0.20'
+gem 'thor', '~> 1.0'
 gem 'rack', '~> 2.2.3'
 
 gem 'thwait', '~> 0.2.0'
@@ -129,7 +129,7 @@ group :test do
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'simplecov', '~> 0.19', require: false
-  gem 'webmock', '~> 3.8'
+  gem 'webmock', '~> 3.9'
   gem 'parallel_tests', '~> 3.2'
   gem 'rspec_junit_formatter', '~> 0.4'
 end
