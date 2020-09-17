@@ -1024,10 +1024,23 @@ onPortAvailable(err => {
     return;
   }
 
-  throng({
-    workers: numWorkers,
-    lifetime: Infinity,
-    start: startWorker,
-    master: startMaster,
-  });
+  if (numWorkers > 1) {
+    throng({
+      workers: numWorkers,
+      lifetime: Infinity,
+      start: startWorker,
+      master: startMaster,
+    });
+  } else {
+    while(true) {
+      try {
+        startWorker(0);
+      } catch(e) {
+        log.error(e);
+        log.error('-----');
+        log.error(data);
+        log.error('-----');
+      }
+    }
+  }
 });
