@@ -944,6 +944,9 @@ const startWorker = (workerId) => {
         }
       } catch(e) {
         log.error(e);
+        log.error('-----');
+        log.error(data);
+        log.error('-----');
       }
     });
 
