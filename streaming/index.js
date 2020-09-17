@@ -932,14 +932,18 @@ const startWorker = (workerId) => {
     ws.on('error', onEnd);
 
     ws.on('message', data => {
-      const { type, stream, ...params } = JSON.parse(data);
+      try {
+        const { type, stream, ...params } = JSON.parse(data);
 
-      if (type === 'subscribe') {
-        subscribeWebsocketToChannel(session, firstParam(stream), params);
-      } else if (type === 'unsubscribe') {
-        unsubscribeWebsocketFromChannel(session, firstParam(stream), params)
-      } else {
-        // Unknown action type
+        if (type === 'subscribe') {
+          subscribeWebsocketToChannel(session, firstParam(stream), params);
+        } else if (type === 'unsubscribe') {
+          unsubscribeWebsocketFromChannel(session, firstParam(stream), params)
+        } else {
+          // Unknown action type
+        }
+      } catch(e) {
+        log.error(e);
       }
     });
 
