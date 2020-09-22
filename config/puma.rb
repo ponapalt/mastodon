@@ -14,7 +14,7 @@ workers     ENV.fetch('WEB_CONCURRENCY') { 2 }
 
 nakayoshi_fork(true)
 
-
+fork_worker!
 preload_app!
 
 on_worker_boot do
