@@ -522,16 +522,7 @@ const startWorker = (workerId) => {
     log.verbose(req.requestId, `Starting stream from ${ids.join(', ')} for ${accountId}${streamType}`);
 
     const listener = message => {
-      let json_parse_result;
-
-      try {
-        json_parse_result = JSON.parse(message);
-      } catch(e) {
-        log.error(e);
-        return;
-      }
-
-      const { event, payload, queued_at } = json_parse_result;
+      const { event, payload, queued_at } = JSON.parse(message);
 
       const transmit = () => {
         const now            = new Date().getTime();
@@ -941,16 +932,7 @@ const startWorker = (workerId) => {
     ws.on('error', onEnd);
 
     ws.on('message', data => {
-      let json_parse_result;
-
-      try {
-        json_parse_result = JSON.parse(data);
-      } catch(e) {
-        log.error(e);
-        return;
-      }
-
-      const { type, stream, ...params } = json_parse_result;
+      const { type, stream, ...params } = JSON.parse(data);
 
       if (type === 'subscribe') {
         subscribeWebsocketToChannel(session, firstParam(stream), params);
