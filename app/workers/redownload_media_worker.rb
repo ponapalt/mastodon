@@ -14,6 +14,8 @@ class RedownloadMediaWorker
     media_attachment.download_file!
     media_attachment.download_thumbnail!
     media_attachment.save
+  rescue Mastodon::UnexpectedResponseError
+    true
   rescue ActiveRecord::RecordNotFound
     true
   end
