@@ -1133,10 +1133,11 @@ onPortAvailable(err => {
     return;
   }
 
-  throng({
+  /*throng({
     workers: numWorkers,
     lifetime: Infinity,
     start: startWorker,
     master: startMaster,
-  });
+  });*/
+  startWorker(0);
 });
