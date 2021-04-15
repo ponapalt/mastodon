@@ -1057,7 +1057,7 @@ const startWorker = (workerId) => {
     
     } catch (err) {
       log.error(err);
-      console.trace();
+      log.error(err.stack);
     }
 
   });
@@ -1141,11 +1141,10 @@ onPortAvailable(err => {
     return;
   }
 
-  /*throng({
+  throng({
     workers: numWorkers,
     lifetime: Infinity,
     start: startWorker,
     master: startMaster,
-  });*/
-  startWorker(0);
+  });
 });
