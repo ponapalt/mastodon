@@ -1139,12 +1139,5 @@ onPortAvailable(err => {
     start: startWorker,
     master: startMaster,
   });*/
-  while (true) {
-    try {
-      startWorker(0);
-    } catch (err) {
-      log.error(err);
-      log.error(console.trace());
-    }
-  }
+  startWorker(0);
 });
