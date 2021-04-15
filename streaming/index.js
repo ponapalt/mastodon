@@ -994,6 +994,8 @@ const startWorker = (workerId) => {
   };
 
   wss.on('connection', (ws, req) => {
+    try {
+
     const location = url.parse(req.url, true);
 
     req.requestId     = uuid.v4();
@@ -1052,6 +1054,12 @@ const startWorker = (workerId) => {
     if (location.query.stream) {
       subscribeWebsocketToChannel(session, firstParam(location.query.stream), location.query);
     }
+    
+    } catch (err) {
+      log.error(err);
+      console.trace();
+    }
+
   });
 
   setInterval(() => {
@@ -1139,12 +1147,5 @@ onPortAvailable(err => {
     start: startWorker,
     master: startMaster,
   });*/
-  while (true) {
-    try {
-      startWorker(0);
-    } catch (err) {
-      log.error(err);
-      log.error(console.trace());
-    }
-  }
+  startWorker(0);
 });
