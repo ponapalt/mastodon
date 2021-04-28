@@ -1086,6 +1086,7 @@ const startWorker = (workerId) => {
 
   const onError = (err) => {
     log.error(err);
+    log.error(err.stack);
     server.close();
     process.exit(0);
   };
