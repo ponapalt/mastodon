@@ -449,7 +449,14 @@ const startWorker = (workerId) => {
       callback(true, undefined, undefined);
     }).catch(err => {
       log.error(info.req.requestId, err.toString());
-      callback(false, 401, 'Unauthorized');
+      
+      try {
+        callback(false, 401, 'Unauthorized');
+      } catch (err) {
+        log.error(err);
+        log.error(err.stack);
+      }
+      
     });
   };
 
