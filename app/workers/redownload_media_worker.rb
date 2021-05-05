@@ -3,6 +3,7 @@
 class RedownloadMediaWorker
   include Sidekiq::Worker
   include ExponentialBackoff
+  include JsonLdHelper
 
   sidekiq_options queue: 'pull', retry: 3
 
@@ -17,6 +18,14 @@ class RedownloadMediaWorker
   rescue Mastodon::UnexpectedResponseError
     true
   rescue ActiveRecord::RecordNotFound
-    true
+    # Do nothing
+  rescue Mastodon::UnexpectedResponseError => e
+    response = e.response
+
+    if response_error_unsalvageable?(response)
+      # Give up
+    else
+      raise e
+    end
   end
 end
