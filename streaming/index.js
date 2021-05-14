@@ -449,14 +449,11 @@ const startWorker = (workerId) => {
       callback(true, undefined, undefined);
     }).catch(err => {
       log.error(info.req.requestId, err.toString());
+      log.error(err.stack);
       
-      try {
+      if(err.code !== 'EPIPE') {
         callback(false, 401, 'Unauthorized');
-      } catch (err) {
-        log.error(err);
-        log.error(err.stack);
       }
-      
     });
   };
 
