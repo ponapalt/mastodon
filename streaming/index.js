@@ -451,7 +451,7 @@ const startWorker = (workerId) => {
       log.error(info.req.requestId, err.toString());
       log.error(err.stack);
       
-      if(err.code !== 'EPIPE' && err.errno !== /*EPIPE*/32) {
+      if(err.toString() !== 'Error: write EPIPE') {
         callback(false, 401, 'Unauthorized');
       }
     });
