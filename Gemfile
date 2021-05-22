@@ -86,7 +86,7 @@ gem 'sidekiq-bulk', '~>0.2.0'
 gem 'sidekiq-failures', '~>1.0.0'
 gem 'sidekiq-history'
 gem 'sidekiq-statistic', '~>1.4'
-gem 'simple-navigation', '~> 4.1'
+gem 'simple-navigation', '~> 4.3'
 gem 'simple_form', '~> 5.1'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
 gem 'stoplight', '~> 2.2.1'
@@ -118,12 +118,12 @@ end
 group :test do
   gem 'capybara', '~> 3.35'
   gem 'climate_control', '~> 0.2'
-  gem 'faker', '~> 2.17'
+  gem 'faker', '~> 2.18'
   gem 'microformats', '~> 4.2'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'simplecov', '~> 0.21', require: false
-  gem 'webmock', '~> 3.12'
+  gem 'webmock', '~> 3.13'
   gem 'parallel_tests', '~> 3.7'
   gem 'rspec_junit_formatter', '~> 0.4'
 end
