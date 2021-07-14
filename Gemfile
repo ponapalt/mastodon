@@ -157,6 +157,4 @@ end
 gem 'concurrent-ruby', require: false
 gem 'connection_pool', require: false
 
-gem 'resolv', '~> 0.2.1'
-
 gem 'xorcist', '~> 1.1'
