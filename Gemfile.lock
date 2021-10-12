@@ -424,7 +424,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (5.5.0)
+    puma (5.5.1)
       nio4r (~> 2.0)
     pundit (2.1.1)
       activesupport (>= 3.0.0)
@@ -779,8 +779,8 @@ DEPENDENCIES
   sidekiq-bulk (~> 0.2.0)
   sidekiq-failures (~> 1.0.0)
   sidekiq-history
-  sidekiq-statistic (~> 1.4)
   sidekiq-scheduler (~> 3.1)
+  sidekiq-statistic (~> 1.4)
   sidekiq-unique-jobs (~> 7.1)
   simple-navigation (~> 4.3)
   simple_form (~> 5.1)
