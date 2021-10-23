@@ -342,7 +342,7 @@ export const submitComposer = createAppThunk(
     }
 
     const maxChars =
-      server.server.item?.configuration.statuses.max_characters ?? 500;
+      server.server.item?.configuration.statuses.max_characters ?? 29801;
     if (compose.get('spoiler') && typeof spoilerText === 'string') {
       text += spoilerText;
     }
