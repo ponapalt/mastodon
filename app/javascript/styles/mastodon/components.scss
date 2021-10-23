@@ -8890,14 +8890,17 @@ noscript {
   }
 
   &__pagination {
-    padding: 15px;
+    padding: 5px;
     color: var(--color-text-secondary);
     position: absolute;
-    bottom: 3px;
+    top: 0;
     inset-inline-end: 0;
     display: flex;
     align-items: center;
     z-index: 1;
+  }
+  &__pagination span {
+    vertical-align: middle;
   }
 }
 
