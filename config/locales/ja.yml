@@ -939,6 +939,7 @@ ja:
     logout: ログアウト
     migrate_account: 別のアカウントに引っ越す
     migrate_account_html: 引っ越し先を明記したい場合は<a href="%{path}">こちら</a>で設定できます。
+    privacy_policy_agreement_html: 私は <a href="%{privacy_policy_path}" target="_blank">プライバシーポリシー</a> をよく読んで同意します。<br>スパム避けのため<strong>登録ボタンを押すと認証画面が出ます。</strong>プライバシーポリシーの中にユーザー名とパスワードの説明がありますので入力してください。
     or_log_in_with: または次のサービスでログイン
     privacy_policy_agreement_html: <a href="%{privacy_policy_path}" target="_blank">プライバシーポリシー</a>を読み、同意します
     providers:
@@ -960,7 +961,7 @@ ja:
     sign_in:
       title: "%{domain}にログイン"
     sign_up:
-      preamble: この Mastodon サーバーのアカウントがあれば、ネットワーク上の他の人のアカウントがどこでホストされているかに関係なく、その人をフォローすることができます。
+      preamble: この Mastodon サーバーのアカウントがあれば、ネットワーク上の他の人のアカウントがどこでホストされているかに関係なく、その人をフォローすることができます。スパム避けのため登録ボタンを押すと認証画面が出ます。プライバシーポリシーの中にユーザー名とパスワードの説明がありますので入力してください。
       title: さあ %{domain} でセットアップしましょう.
     status:
       account_status: アカウントの状態
