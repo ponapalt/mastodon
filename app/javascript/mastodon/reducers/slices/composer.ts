@@ -360,7 +360,7 @@ export const submitComposer = createAppThunk(
     }
 
     const maxChars =
-      server.server.item?.configuration.statuses.max_characters ?? 500;
+      server.server.item?.configuration.statuses.max_characters ?? 29801;
     const textLength = length(countableText(text));
     if (textLength > maxChars) {
       dispatch(composerSlice.actions.addError('too-long'));
