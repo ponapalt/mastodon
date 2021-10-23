@@ -13,7 +13,23 @@ else
 end
 
 environment ENV.fetch('RAILS_ENV') { 'development' }
-workers     ENV.fetch('WEB_CONCURRENCY') { 2 }.to_i
+#workers     ENV.fetch('WEB_CONCURRENCY') { 2 }.to_i
+
+worker_num = ENV.fetch('WEB_CONCURRENCY') { 2 }.to_i
+
+if worker_num > 1 then
+  workers worker_num
+  preload_app!
+  on_worker_boot do
+    ActiveSupport.on_load(:active_record) do
+      ActiveRecord::Base.establish_connection
+    end
+  end
+else
+  workers 0
+end
+
+=begin
 
 preload_app!
 
@@ -22,6 +38,9 @@ on_worker_boot do
     ActiveRecord::Base.establish_connection
   end
 end
+
+=end
+
 
 plugin :tmp_restart
 
