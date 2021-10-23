@@ -18,17 +18,30 @@ class StatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
+    tokenizer: {
+      ja_tokenizer: {
+        type: 'kuromoji_tokenizer',
+        mode: 'search',
+        user_dictionary: 'userdic.txt',
+      },
+    },
     analyzer: {
       content: {
-        tokenizer: 'uax_url_email',
+        tokenizer: 'ja_tokenizer',
+        type: 'custom',
+        char_filter: %w(
+          icu_normalizer
+        ),
         filter: %w(
+          kuromoji_stemmer
+          kuromoji_part_of_speech
+          ja_stop
           english_possessive_stemmer
-          lowercase
-          asciifolding
-          cjk_width
-          english_stop
           english_stemmer
         ),
+      },
+      ja_default_analyzer: {
+        tokenizer: 'kuromoji_tokenizer',
       },
     },
   }
@@ -66,7 +79,7 @@ class StatusesIndex < Chewy::Index
     field :id, type: 'long'
     field :account_id, type: 'long'
 
-    field :text, type: 'text', value: ->(status) { status.searchable_text } do
+    field :text, type: 'text', analyzer: 'ja_default_analyzer', value: ->(status) { status.searchable_text } do
       field :stemmed, type: 'text', analyzer: 'content'
     end
 
