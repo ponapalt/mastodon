@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+
+=begin
+
+
+
 class StatusesIndex < Chewy::Index
   include FormattingHelper
 
@@ -28,6 +33,30 @@ class StatusesIndex < Chewy::Index
           cjk_width
           english_stop
           english_stemmer
+        ),
+      },
+    },
+  }
+=end
+
+
+class StatusesIndex < Chewy::Index
+  settings index: { refresh_interval: '15m' }, analysis: {
+    tokenizer: {
+      kuromoji_user_dict: {
+        type: 'kuromoji_tokenizer',
+        user_dictionary: 'userdic.txt',
+      },
+    },
+    analyzer: {
+      content: {
+        type: 'custom',
+        tokenizer: 'kuromoji_user_dict',
+        filter: %w(
+          kuromoji_baseform
+          kuromoji_stemmer
+          cjk_width
+          lowercase
         ),
       },
     },
