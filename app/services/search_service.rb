@@ -35,7 +35,7 @@ class SearchService < BaseService
   end
 
   def perform_statuses_search!
-    definition = parsed_query.apply(StatusesIndex.filter(term: { searchable_by: @account.id }))
+    definition = parsed_query.apply(StatusesIndex).order(id: :desc)
 
     if @options[:account_id].present?
       definition = definition.filter(term: { account_id: @options[:account_id] })
@@ -118,7 +118,7 @@ class SearchService < BaseService
       blocking: Account.blocking_map(account_ids, account.id),
       blocked_by: Account.blocked_by_map(account_ids, account.id),
       muting: Account.muting_map(account_ids, account.id),
-      following: Account.following_map(account_ids, account.id),
+#     following: Account.following_map(account_ids, account.id),
       domain_blocking_by_domain: Account.domain_blocking_map_by_domain(domains, account.id),
     }
   end
