@@ -606,6 +606,10 @@ GEM
       redis (>= 4.2.0)
     sidekiq-bulk (0.2.0)
       sidekiq
+    sidekiq-failures (1.0.1)
+      sidekiq (>= 4.0.0)
+    sidekiq-history (0.0.12)
+      sidekiq (>= 3.0.0)
     sidekiq-scheduler (4.0.0)
       redis (>= 4.2.0)
       rufus-scheduler (~> 3.2)
@@ -827,6 +831,8 @@ DEPENDENCIES
   scenic (~> 1.6)
   sidekiq (~> 6.4)
   sidekiq-bulk (~> 0.2.0)
+  sidekiq-failures (~> 1.0.0)
+  sidekiq-history
   sidekiq-scheduler (~> 4.0)
   sidekiq-unique-jobs (~> 7.1)
   simple-navigation (~> 4.3)
