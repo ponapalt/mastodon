@@ -1299,7 +1299,7 @@ en:
       title: Login to %{domain}
     sign_up:
       manual_review: Sign-ups on %{domain} go through manual review by our moderators. To help us process your registration, write a bit about yourself and why you want an account on %{domain}.
-      preamble: With an account on this Mastodon server, you'll be able to follow any other person on the fediverse, regardless of where their account is hosted.
+      preamble: With an account on this Mastodon server, you'll be able to follow any other person on the fediverse, regardless of where their account is hosted. To avoid spam, you will be prompted for authentication when you click the registration button. Please enter your username and password as described in the Privacy Policy.
       title: Let's get you set up on %{domain}.
     status:
       account_status: Account status
@@ -1311,7 +1311,7 @@ en:
       view_strikes: View past strikes against your account
     too_fast: Form submitted too fast, try again.
     use_security_key: Use security key
-    user_agreement_html: I have read and agree to the <a href="%{terms_of_service_path}" target="_blank">terms of service</a> and <a href="%{privacy_policy_path}" target="_blank">privacy policy</a>
+    user_agreement_html: I have read and agree to the <a href="%{terms_of_service_path}" target="_blank">terms of service</a> and <a href="%{privacy_policy_path}" target="_blank">privacy policy</a><br>To avoid spam, you will be prompted for authentication when you click the registration button. Please enter your username and password as described in the <a href="%{privacy_policy_path}" target="_blank">privacy policy</a>.
     user_privacy_agreement_html: I have read and agree to the <a href="%{privacy_policy_path}" target="_blank">privacy policy</a>
   author_attribution:
     example_title: Sample text
