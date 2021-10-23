@@ -18,14 +18,24 @@ class StatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
+    tokenizer: {
+      kuromoji_user_dict: {
+        type: 'kuromoji_tokenizer',
+        user_dictionary: 'userdic.txt',
+      },
+    },
     analyzer: {
       content: {
-        tokenizer: 'uax_url_email',
+        type: 'custom',
+        char_filter: %w(icu_normalizer),
+        tokenizer: %w(kuromoji_user_dict),
         filter: %w(
-          english_possessive_stemmer
-          lowercase
-          asciifolding
+          kuromoji_baseform
+          kuromoji_stemmer
           cjk_width
+          lowercase
+          english_possessive_stemmer
+          asciifolding
           english_stop
           english_stemmer
         ),
