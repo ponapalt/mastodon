@@ -1422,7 +1422,7 @@ body > [data-popper-placement] {
 }
 
 .translate-button {
-  margin-top: 16px;
+  margin-top: 10px;
   font-size: 15px;
   line-height: 22px;
   display: flex;
@@ -1468,7 +1468,7 @@ body > [data-popper-placement] {
 }
 
 .status {
-  padding: 16px;
+  padding: 10px;
   min-height: 54px;
   border-bottom: 1px solid var(--color-border-primary);
   cursor: auto;
@@ -1497,7 +1497,7 @@ body > [data-popper-placement] {
   .video-player,
   .audio-player,
   .attachment-list {
-    margin-top: 16px;
+    margin-top: 10px;
   }
 
   &--in-thread {
@@ -1698,7 +1698,7 @@ body > [data-popper-placement] {
 }
 
 .status__prepend {
-  padding: 16px;
+  padding: 10px;
   padding-bottom: 0;
   display: flex;
   align-items: center;
@@ -1756,7 +1756,7 @@ body > [data-popper-placement] {
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .detailed-status__action-bar-dropdown {
@@ -2008,7 +2008,7 @@ body > [data-popper-placement] {
 }
 
 .account {
-  padding: 16px;
+  padding: 10px;
 
   // Using :where keeps specificity low, allowing for existing
   // .account overrides to still apply
@@ -2486,7 +2486,7 @@ a.account__display-name {
 }
 
 .notification__report {
-  padding: 16px;
+  padding: 10px;
   border-bottom: 1px solid var(--color-border-primary);
   display: flex;
   gap: 10px;
@@ -2549,7 +2549,7 @@ a.account__display-name {
 }
 
 .notification__message {
-  padding: 16px;
+  padding: 10px;
   padding-bottom: 0;
   cursor: default;
   color: var(--color-text-secondary);
@@ -3515,7 +3515,7 @@ a.account__display-name {
   &__badge {
     position: absolute;
     inset-inline-start: 9px;
-    top: -13px;
+    top: -10px;
     color: var(--color-text-on-brand-base);
     background: var(--color-bg-brand-base);
     border: 2px solid var(--color-bg-primary);
@@ -4050,7 +4050,7 @@ a.account__display-name {
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 10px;
+  padding: 8px 10px;
   padding-inline-start: 14px;
   overflow: hidden;
   font-size: 16px;
@@ -4144,7 +4144,7 @@ a.account__display-name {
 
     .trends__item {
       border-bottom: 0;
-      padding: 10px;
+      padding: 10px 5px;
 
       &__current {
         color: var(--color-text-secondary);
@@ -8752,6 +8752,10 @@ noscript {
     border-bottom: 1px solid var(--color-border-primary);
     gap: 8px;
 
+    &:last-child {
+      border-bottom: 0;
+    }
+
     &__name {
       flex: 1 1 auto;
       color: var(--color-text-secondary);
@@ -10063,7 +10067,7 @@ noscript {
 
 .link-footer {
   flex: 0 0 auto;
-  padding-top: 20px;
+  padding: 10px;
   z-index: 1;
   font-size: 13px;
 
@@ -10073,7 +10077,7 @@ noscript {
 
   p {
     color: var(--color-text-secondary);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     .version {
       white-space: nowrap;
