@@ -957,7 +957,7 @@ en:
     migrate_account: Move to a different account
     migrate_account_html: If you wish to redirect this account to a different one, you can <a href="%{path}">configure it here</a>.
     or_log_in_with: Or log in with
-    privacy_policy_agreement_html: I have read and agree to the <a href="%{privacy_policy_path}" target="_blank">privacy policy</a>
+    privacy_policy_agreement_html: I have read and agree to the <a href="%{privacy_policy_path}" target="_blank">privacy policy</a> Please input username/password described in privacy policy after pushing registration button.
     providers:
       cas: CAS
       saml: SAML
@@ -975,7 +975,7 @@ en:
       email_settings_hint_html: The confirmation e-mail was sent to %{email}. If that e-mail address is not correct, you can change it in account settings.
       title: Setup
     sign_up:
-      preamble: With an account on this Mastodon server, you'll be able to follow any other person on the network, regardless of where their account is hosted.
+      preamble: With an account on this Mastodon server, you'll be able to follow any other person on the network, regardless of where their account is hosted.To avoid spam, you will be prompted for authentication when you click the registration button. Please enter your username and password as described in the Privacy Policy.
       title: Let's get you set up on %{domain}.
     status:
       account_status: Account status
