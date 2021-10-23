@@ -129,7 +129,7 @@ class Tag < ApplicationRecord
     end
 
     def normalize(str)
-      str.gsub(/\A#/, '')
+      str.gsub(/\A#/, '').unicode_normalize(:nfkc)
     end
   end
 
