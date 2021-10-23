@@ -976,7 +976,7 @@ body > [data-popper-placement] {
   border: 0;
   background: transparent;
   padding: 0;
-  padding-top: 16px;
+  padding-top: 10px;
   text-decoration: none;
 
   &:hover,
@@ -991,7 +991,7 @@ body > [data-popper-placement] {
 }
 
 .translate-button {
-  margin-top: 16px;
+  margin-top: 10px;
   font-size: 15px;
   line-height: 22px;
   display: flex;
@@ -1056,7 +1056,7 @@ body > [data-popper-placement] {
 }
 
 .status {
-  padding: 16px;
+  padding: 10px;
   min-height: 54px;
   border-bottom: 1px solid lighten($ui-base-color, 8%);
   cursor: auto;
@@ -1078,7 +1078,7 @@ body > [data-popper-placement] {
   .video-player,
   .audio-player,
   .attachment-list {
-    margin-top: 16px;
+    margin-top: 10px;
   }
 
   &.light {
@@ -1281,7 +1281,7 @@ body > [data-popper-placement] {
 }
 
 .status__prepend {
-  padding: 16px;
+  padding: 10px;
   padding-bottom: 0;
   display: inline-flex;
   gap: 10px;
@@ -1318,7 +1318,7 @@ body > [data-popper-placement] {
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .detailed-status__action-bar-dropdown {
@@ -1482,7 +1482,7 @@ body > [data-popper-placement] {
 }
 
 .account {
-  padding: 16px;
+  padding: 10px;
   border-bottom: 1px solid lighten($ui-base-color, 8%);
 
   .account__display-name {
@@ -1741,7 +1741,7 @@ a.account__display-name {
 }
 
 .notification__report {
-  padding: 16px;
+  padding: 10px;
   border-bottom: 1px solid lighten($ui-base-color, 8%);
   display: flex;
   gap: 10px;
@@ -1778,7 +1778,7 @@ a.account__display-name {
 }
 
 .notification__message {
-  padding: 16px;
+  padding: 10px;
   padding-bottom: 0;
   cursor: default;
   color: $darker-text-color;
@@ -2521,7 +2521,7 @@ $ui-header-height: 55px;
   &__badge {
     position: absolute;
     inset-inline-start: 9px;
-    top: -13px;
+    top: -10px;
     background: $ui-highlight-color;
     border: 2px solid lighten($ui-base-color, 8%);
     padding: 1px 6px;
@@ -3268,7 +3268,7 @@ $ui-header-height: 55px;
   align-items: center;
   gap: 5px;
   font-size: 16px;
-  padding: 15px;
+  padding: 10px 15px;
   text-decoration: none;
   overflow: hidden;
   white-space: nowrap;
@@ -3394,7 +3394,7 @@ $ui-header-height: 55px;
 
     .trends__item {
       border-bottom: 0;
-      padding: 10px;
+      padding: 10px 5px;
 
       &__current {
         color: $darker-text-color;
@@ -7658,7 +7658,7 @@ noscript {
     align-items: center;
     padding: 15px;
     border-bottom: 1px solid lighten($ui-base-color, 8%);
-    gap: 15px;
+    gap: 10px;
 
     &:last-child {
       border-bottom: 0;
@@ -8942,13 +8942,12 @@ noscript {
 .link-footer {
   flex: 0 0 auto;
   padding: 10px;
-  padding-top: 20px;
   z-index: 1;
   font-size: 13px;
 
   p {
     color: $dark-text-color;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     .version {
       white-space: nowrap;
