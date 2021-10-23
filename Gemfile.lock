@@ -570,6 +570,10 @@ GEM
       redis (>= 4.2.0)
     sidekiq-bulk (0.2.0)
       sidekiq
+    sidekiq-failures (1.0.1)
+      sidekiq (>= 4.0.0)
+    sidekiq-history (0.0.12)
+      sidekiq (>= 3.0.0)
     sidekiq-scheduler (3.1.1)
       e2mmap
       redis (>= 3, < 5)
@@ -577,6 +581,9 @@ GEM
       sidekiq (>= 3)
       thwait
       tilt (>= 1.4.0)
+    sidekiq-statistic (1.4.0)
+      sidekiq (>= 5.0)
+      tilt (~> 2.0)
     sidekiq-unique-jobs (7.1.15)
       brpoplpush-redis_script (> 0.1.1, <= 2.0.0)
       concurrent-ruby (~> 1.0, >= 1.0.5)
@@ -780,6 +787,9 @@ DEPENDENCIES
   scenic (~> 1.6)
   sidekiq (~> 6.4)
   sidekiq-bulk (~> 0.2.0)
+  sidekiq-failures (~> 1.0.0)
+  sidekiq-history
+  sidekiq-statistic (~> 1.4)
   sidekiq-scheduler (~> 3.1)
   sidekiq-unique-jobs (~> 7.1)
   simple-navigation (~> 4.3)
