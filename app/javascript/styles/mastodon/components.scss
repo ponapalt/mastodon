@@ -8682,13 +8682,16 @@ noscript {
   }
 
   &__pagination {
-    padding: 15px;
-    color: $darker-text-color;
+    padding: 5px;
+    color: $dark-text-color;
     position: absolute;
-    bottom: 3px;
+    top: 0;
     inset-inline-end: 0;
     display: flex;
     align-items: center;
+  }
+  &__pagination span {
+    vertical-align: middle;
   }
 }
 
