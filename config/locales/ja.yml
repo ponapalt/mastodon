@@ -19,7 +19,7 @@ ja:
     continue_to_web: アプリで続ける
     discover_users: ユーザーを見つける
     documentation: ドキュメント
-    federation_hint_html: "%{instance} のアカウントひとつでどんなMastodon互換サーバーのユーザーでもフォローできるでしょう。"
+    federation_hint_html: "%{instance} のアカウントひとつでどんなMastodon互換サーバーのユーザーでもフォローできるでしょう。<br>スパム避けのため<strong>登録ボタンを押すとに認証画面が出ます。</strong>「サーバーのルール」の中にユーザー名とパスワードの説明がありますので入力してください。"
     get_apps: モバイルアプリを試す
     hosted_on: Mastodon hosted on %{domain}
     instance_actor_flash: "このアカウントはサーバーそのものを示す仮想的なもので、特定のユーザーを示すものではありません。これはサーバーの連合のために使用されます。サーバー全体をブロックするときは、このアカウントをブロックせずに、ドメインブロックを使用してください。 \n"
