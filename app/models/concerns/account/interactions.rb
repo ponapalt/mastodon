@@ -293,8 +293,11 @@ module Account::Interactions
   def relations_map(account_ids, domains = nil, **options)
     relations = {
       blocked_by: Account.blocked_by_map(account_ids, id),
-      following: Account.following_map(account_ids, id),
     }
+    
+    relations.merge!({
+      following: Account.following_map(account_ids, id),
+    }) unless options[:skip_following]
 
     return relations if options[:skip_blocking_and_muting]
 
