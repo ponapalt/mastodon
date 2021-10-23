@@ -473,12 +473,22 @@ const startWorker = async (workerId) => {
     // variables. OAuth scope checks are moved to the point of subscription
     // to a specific stream.
 
+	var isVerifyError = false;
+	
     accountFromRequest(info.req, alwaysRequireAuth).then(() => {
       callback(true, undefined, undefined);
     }).catch(err => {
       log.error(info.req.requestId, err.toString());
-      callback(false, 401, 'Unauthorized');
+      isVerifyError = true;
     });
+    
+    if (isVerifyError) {
+      try {
+        callback(false, 401, 'Unauthorized');
+      } catch (err) {
+        log.error(info.req.requestId, err.toString());
+      }
+    }
   };
 
   /**
@@ -1235,6 +1245,7 @@ const startWorker = async (workerId) => {
 
   const onError = (err) => {
     log.error(err);
+    log.error(err.stack);
     server.close();
     process.exit(0);
   };
@@ -1290,10 +1301,14 @@ onPortAvailable(err => {
     return;
   }
 
-  throng({
-    workers: numWorkers,
-    lifetime: Infinity,
-    start: startWorker,
-    master: startMaster,
-  });
+  if (numWorkers == 1) {
+    startWorker(1);
+  } else {
+    throng({
+      workers: numWorkers,
+      lifetime: Infinity,
+      start: startWorker,
+      master: startMaster,
+    });
+  }
 });
