@@ -50,6 +50,7 @@ class Importer::StatusesIndexImporter < Importer::BaseImporter
 
   def scopes
     [
+      remote_statuses_scope,
       local_statuses_scope,
       local_mentions_scope,
       local_favourites_scope,
@@ -76,5 +77,9 @@ class Importer::StatusesIndexImporter < Importer::BaseImporter
 
   def local_statuses_scope
     Status.local.select('"statuses"."id", COALESCE("statuses"."reblog_of_id", "statuses"."id") AS status_id')
+  end
+
+  def remote_statuses_scope
+    Status.remote.select('"statuses"."id", COALESCE("statuses"."reblog_of_id", "statuses"."id") AS status_id')
   end
 end
