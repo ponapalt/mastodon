@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Mastodon::SidekiqMiddleware
-  BACKTRACE_LIMIT = 3
+  BACKTRACE_LIMIT = 60
 
   def call(*, &block)
     Chewy.strategy(:mastodon, &block)
