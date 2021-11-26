@@ -11,6 +11,10 @@ class LinkDetailsExtractor
 
     def initialize(data)
       @data = data
+      @data.slice!("//<![CDATA[")
+      @data.slice!("// <![CDATA[")
+      @data.slice!("//]]>")
+      @data.slice!("// ]]&gt;")
     end
 
     def headline
@@ -80,7 +84,13 @@ class LinkDetailsExtractor
     end
 
     def json
-      @json ||= root_array(Oj.load(@data)).find { |obj| SUPPORTED_TYPES.include?(obj['@type']) } || {}
+      @json ||= begin
+        root_array(Oj.load(@data)).find { |obj| SUPPORTED_TYPES.include?(obj['@type']) } || {}
+      rescue Oj::ParseError
+        {}
+      rescue EncodingError
+        {}
+      end
     end
   end
 
@@ -226,6 +236,8 @@ class LinkDetailsExtractor
       json_ld = document.xpath('//script[@type="application/ld+json"]').map(&:content).first
       json_ld.present? ? StructuredData.new(json_ld) : nil
     rescue Oj::ParseError
+      nil
+    rescue EncodingError
       nil
     end
   end
