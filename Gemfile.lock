@@ -405,7 +405,7 @@ GEM
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
     nio4r (2.5.8)
-    nokogiri (1.13.3)
+    nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     nsa (0.2.8)
@@ -841,8 +841,8 @@ DEPENDENCIES
   sidekiq-bulk (~> 0.2.0)
   sidekiq-failures (~> 1.0.0)
   sidekiq-history
-  sidekiq-statistic (~> 1.4)
   sidekiq-scheduler (~> 3.1)
+  sidekiq-statistic (~> 1.4)
   sidekiq-unique-jobs (~> 7.1)
   simple-navigation (~> 4.3)
   simple_form (~> 5.1)
