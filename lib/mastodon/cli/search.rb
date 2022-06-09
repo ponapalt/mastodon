@@ -85,7 +85,12 @@ module Mastodon::CLI
 
       indices.each do |index|
         importer = importers[index]
-        importer.optimize_for_import!
+        
+        begin
+          importer.optimize_for_import!
+        rescue => e
+          p e
+        end
 
         importer.on_progress do |(indexed, deleted)|
           progress.total = nil if progress.progress + indexed + deleted > progress.total
@@ -100,15 +105,27 @@ module Mastodon::CLI
 
         if options[:import]
           progress.title = "Importing #{index} "
-          importer.import!
+          begin
+            importer.import!
+          rescue => e
+            p e
+          end
         end
 
         if options[:clean]
           progress.title = "Cleaning #{index} "
-          importer.clean_up!
+          begin
+            importer.clean_up!
+          rescue => e
+            p e
+          end
         end
       ensure
-        importer.optimize_for_search!
+        begin
+          importer.optimize_for_search!
+        rescue => e
+          p e
+        end
       end
 
       progress.title = 'Done! '
