@@ -833,6 +833,8 @@ GEM
       redis-client (>= 0.22.2)
     sidekiq-bulk (0.2.0)
       sidekiq
+    sidekiq-failures (1.0.4)
+      sidekiq (>= 4.0.0)
     sidekiq-scheduler (6.0.1)
       rufus-scheduler (~> 3.2)
       sidekiq (>= 7.3, < 9)
@@ -1081,6 +1083,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq (< 8)
   sidekiq-bulk (~> 0.2.0)
+  sidekiq-failures (~> 1.0.0)
   sidekiq-scheduler (~> 6.0)
   sidekiq-unique-jobs (> 8)
   simple-navigation (~> 4.4)
