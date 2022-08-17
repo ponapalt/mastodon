@@ -4,7 +4,7 @@ class Web::PushNotificationWorker
   include Sidekiq::Worker
   include RoutingHelper
 
-  sidekiq_options queue: 'push', retry: 5
+  sidekiq_options queue: 'push', retry: 5, dead: false
 
   TTL     = 48.hours
   URGENCY = 'normal'
