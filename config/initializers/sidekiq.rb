@@ -110,6 +110,8 @@ Sidekiq.configure_client do |config|
   config.logger.level = Logger.const_get(ENV.fetch('RAILS_LOG_LEVEL', 'info').upcase.to_s)
 end
 
+Sidekiq.default_job_options = { 'backtrace' => 60 }
+
 SidekiqUniqueJobs.configure do |config|
   config.enabled         = !Rails.env.test?
   config.reaper          = :ruby
