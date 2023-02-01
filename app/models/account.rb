@@ -75,6 +75,8 @@ class Account < ApplicationRecord
   DISPLAY_NAME_LENGTH_LIMIT = 30
   NOTE_LENGTH_LIMIT = 500
 
+  DEFAULT_FIELDS_SIZE = 10
+  
   include Attachmentable # Load prior to Avatar & Header concerns
 
   include Account::Associations
