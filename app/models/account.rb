@@ -70,6 +70,8 @@ class Account < ApplicationRecord
   URL_PREFIX_RE = %r{\Ahttp(s?)://[^/]+}
   USERNAME_ONLY_RE = /\A#{USERNAME_RE}\z/i
 
+  DEFAULT_FIELDS_SIZE = 10
+
   include Attachmentable
   include AccountAssociations
   include AccountAvatar
@@ -101,7 +103,7 @@ class Account < ApplicationRecord
   validates_with UnreservedUsernameValidator, if: -> { local? && will_save_change_to_username? && actor_type != 'Application' }
   validates :display_name, length: { maximum: 30 }, if: -> { local? && will_save_change_to_display_name? }
   validates :note, note_length: { maximum: 500 }, if: -> { local? && will_save_change_to_note? }
-  validates :fields, length: { maximum: 4 }, if: -> { local? && will_save_change_to_fields? }
+  validates :fields, length: { maximum: DEFAULT_FIELDS_SIZE }, if: -> { local? && will_save_change_to_fields? }
   validates :uri, absence: true, if: :local?, on: :create
   validates :inbox_url, absence: true, if: :local?, on: :create
   validates :shared_inbox_url, absence: true, if: :local?, on: :create
@@ -343,8 +345,6 @@ class Account < ApplicationRecord
 
     self[:fields] = fields
   end
-
-  DEFAULT_FIELDS_SIZE = 4
 
   def build_fields
     return if fields.size >= DEFAULT_FIELDS_SIZE
