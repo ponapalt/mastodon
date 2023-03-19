@@ -38,7 +38,14 @@ class NodeInfo::Serializer < ActiveModel::Serializer
   end
 
   def metadata
-    {}
+    {
+      maintainer: {
+        name: 'C.Ponapalt',
+        email: 'ponapalt@shillest.net',
+      },
+
+      themeColor: '#B5C0FF',
+    }
   end
 
   private
