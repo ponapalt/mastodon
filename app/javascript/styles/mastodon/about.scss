@@ -28,14 +28,14 @@ $fluid-breakpoint: $maximum-width + 20px;
     position: relative;
     border-bottom: 1px solid lighten($ui-base-color, 8%);
     padding: 1em 1.75em;
-    padding-inline-start: 3em;
+    padding-left: 3em;
     font-weight: 500;
     counter-increment: list-counter;
 
     &::before {
       content: counter(list-counter);
       position: absolute;
-      inset-inline-start: 0;
+      left: 0;
       top: 50%;
       transform: translateY(-50%);
       background: $highlight-text-color;
