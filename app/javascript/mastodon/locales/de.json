@@ -15,7 +15,7 @@
   "about.rules": "Serverregeln",
   "account.account_note_header": "Persönliche Notiz",
   "account.add_or_remove_from_list": "Hinzufügen oder Entfernen von Listen",
-  "account.badges.bot": "Automatisiert",
+  "account.badges.bot": "Bot/AI Kumpel",
   "account.badges.group": "Gruppe",
   "account.block": "@{name} blockieren",
   "account.block_domain": "{domain} sperren",
