@@ -15,7 +15,7 @@
   "about.rules": "伺服器規則",
   "account.account_note_header": "個人備註",
   "account.add_or_remove_from_list": "自列表中新增或移除",
-  "account.badges.bot": "機器人",
+  "account.badges.bot": "機器人/AI 伙伴",
   "account.badges.group": "群組",
   "account.block": "封鎖 @{name}",
   "account.block_domain": "封鎖來自 {domain} 網域之所有內容",
