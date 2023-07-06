@@ -202,7 +202,7 @@ ja:
       defaults:
         autofollow: 招待から参加後、あなたをフォロー
         avatar: アイコン
-        bot: これはBOTアカウントです
+        bot: これはBOT/AIアカウントです
         chosen_languages: 表示する言語
         confirm_new_password: 新しいパスワード（確認用）
         confirm_password: パスワード（確認用）
