@@ -15,7 +15,7 @@
   "about.rules": "サーバーのルール",
   "account.account_note_header": "自分用メモ",
   "account.add_or_remove_from_list": "リストから追加または外す",
-  "account.badges.bot": "Bot",
+  "account.badges.bot": "Bot/AI Buddy",
   "account.badges.group": "Group",
   "account.block": "@{name}さんをブロック",
   "account.block_domain": "{domain}全体をブロック",
