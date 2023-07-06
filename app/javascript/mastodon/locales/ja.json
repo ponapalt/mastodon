@@ -12,7 +12,7 @@
   "about.powered_by": "{mastodon}による分散型ソーシャルメディア",
   "about.rules": "サーバーのルール",
   "account.add_or_remove_from_list": "リストから追加または外す",
-  "account.badges.bot": "Bot",
+  "account.badges.bot": "Bot/AI Buddy",
   "account.badges.group": "Group",
   "account.block": "@{name}さんをブロック",
   "account.block_domain": "{domain}全体をブロック",
