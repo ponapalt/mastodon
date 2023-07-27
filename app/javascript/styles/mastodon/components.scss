@@ -4121,8 +4121,8 @@ a.status-card {
 .status-card__title {
   display: block;
   font-weight: 700;
-  font-size: 19px;
-  line-height: 24px;
+  font-size: 15px;
+  line-height: 17px;
   color: $primary-text-color;
   overflow: hidden;
   white-space: nowrap;
@@ -4179,7 +4179,7 @@ a.status-card {
 
 .status-card__image {
   flex: 0 0 auto;
-  width: 120px;
+  width: 100px;
   aspect-ratio: 1;
   background: lighten($ui-base-color, 8%);
   position: relative;
