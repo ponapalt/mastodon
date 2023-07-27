@@ -284,8 +284,9 @@ class MediaGallery extends PureComponent {
   }
 
   isFullSizeEligible() {
-    const { media } = this.props;
-    return media.size === 1 && media.getIn([0, 'meta', 'small', 'aspect']);
+    return 0;
+    /*const { media } = this.props;
+    return media.size === 1 && media.getIn([0, 'meta', 'small', 'aspect']);*/
   }
 
   render () {
@@ -300,7 +301,7 @@ class MediaGallery extends PureComponent {
     if (this.isFullSizeEligible()) {
       style.aspectRatio = `${this.props.media.getIn([0, 'meta', 'small', 'aspect'])}`;
     } else {
-      style.aspectRatio = '3 / 2';
+      style.aspectRatio = '16 / 9';
     }
 
     const size     = media.size;
