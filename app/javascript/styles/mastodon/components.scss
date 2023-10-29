@@ -430,7 +430,8 @@ body > [data-popper-placement] {
 
   .emoji-picker-dropdown {
     position: absolute;
-    top: 0;
+    top: auto;
+    bottom: 50px;
     inset-inline-end: 0;
   }
 
