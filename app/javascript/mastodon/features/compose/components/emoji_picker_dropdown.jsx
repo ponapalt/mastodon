@@ -395,7 +395,7 @@ class EmojiPickerDropdown extends PureComponent {
 
         <Overlay show={active} placement={placement} flip target={this.findTarget} popperConfig={{ strategy: 'fixed', onFirstUpdate: this.handleOverlayEnter }}>
           {({ props, placement }) => (
-            <div {...props} style={{ ...props.style }}>
+            <div {...props} style={{ ...props.style }} className={`emoji-picker-main`}>
               <div className={`dropdown-animation ${placement}`}>
                 <EmojiPickerMenu
                   custom_emojis={this.props.custom_emojis}
