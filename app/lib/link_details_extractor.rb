@@ -101,7 +101,7 @@ class LinkDetailsExtractor
     end
 
     def json
-      @json ||= root_array(JSON.parse(@data)).compact.find { |obj| SUPPORTED_TYPES.include?(obj['@type']) } || {}
+      @json ||= root_array(JSON.parse(@data)).compact.find { |obj| obj.is_a?(Hash) && SUPPORTED_TYPES.include?(obj['@type']) } || {}
     end
   end
 
