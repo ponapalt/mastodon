@@ -17,6 +17,9 @@ class ActivityPub::LinkedDataSignature
 
     type        = signature_options['type']
     creator_uri = signature_options['creator']
+    if creator_uri =~ %r{^(https?:/)([^/])(.*)$}i
+      creator_uri = "#{$1}/#{$2}#{$3}"
+    end
     signature   = signature_options['signatureValue']
 
     return if signature_options['expires']&.to_datetime&.past?

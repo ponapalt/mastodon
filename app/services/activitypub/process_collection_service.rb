@@ -101,7 +101,13 @@ class ActivityPub::ProcessCollectionService < BaseService
 
   def actor_from_verified_ld_signature
     return unless @json['signature'].is_a?(Hash)
-    return if domain_not_allowed?(@json['signature']['creator'])
+    
+    creator_uri = @json['signature']['creator']
+    if creator_uri =~ %r{^(https?:/)([^/])(.*)$}i
+      creator_uri = "#{$1}/#{$2}#{$3}"
+    end
+    
+    return if domain_not_allowed?(creator_uri)
 
     ActivityPub::LinkedDataSignature.new(@json).verify_actor!
   rescue JSON::LD::JsonLdError, RDF::WriterError => e
