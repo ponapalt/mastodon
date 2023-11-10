@@ -17,6 +17,8 @@ class ActivityPub::FetchFeaturedCollectionService < BaseService
   private
 
   def collection_items(collection)
+    return unless collection.is_a?(Hash)
+    
     collection = fetch_collection(collection['first']) if collection['first'].present?
     return unless collection.is_a?(Hash)
 

@@ -15,6 +15,9 @@ class ActivityPub::LinkedDataSignature
 
     type        = @json['signature']['type']
     creator_uri = @json['signature']['creator']
+    if creator_uri =~ %r{^(https?:/)([^/])(.*)$}i
+      creator_uri = "#{$1}/#{$2}#{$3}"
+    end
     signature   = @json['signature']['signatureValue']
 
     return unless type == 'RsaSignature2017'
