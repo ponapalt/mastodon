@@ -1027,6 +1027,9 @@ en:
           none: Nobody can sign up
           open: Anyone can sign up
         warning_hint: We recommend using “Approval required for sign up” unless you are confident your moderation team can handle spam and malicious registrations in a timely fashion.
+      reject_pattern:
+        desc_html: Specify a regular expression pattern to inspect the content of the activity creation and reject the activity if it matches.
+        title: Reject Pattern
       security:
         authorized_fetch: Require authentication from federated servers
         authorized_fetch_hint: Decide when remote servers are required to authenticate when fetching content from this server.
@@ -1400,6 +1403,7 @@ en:
   applications:
     created: Application successfully created
     destroyed: Application successfully deleted
+    invalid_regexp: "The provided Regexp is invalid: %{message}"
     logout: Logout
     regenerate_token: Regenerate access token
     token_regenerated: Access token successfully regenerated

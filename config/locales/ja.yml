@@ -845,6 +845,9 @@ ja:
           none: 誰にも許可しない
           open: 誰でも登録可
         warning_hint: モデレーションチームがスパムや悪意のある登録を迅速に処理できる自信がない限り、サインアップを承認制にすることをお勧めします。
+      reject_pattern:
+        desc_html: 正規表現パターンを指定して、アクティビティ作成の内容を検査し、一致する場合はアクティビティを拒否する。
+        title: 拒否パターン
       security:
         authorized_fetch: 連合サーバーによる署名なしでの情報取得を拒否する
         authorized_fetch_overridden_hint: この設定は環境変数で指定されているため、ここでは変更できません。
