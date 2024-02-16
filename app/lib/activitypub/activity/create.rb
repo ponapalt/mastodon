@@ -11,8 +11,21 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
 
   private
 
+  def reject_pattern?
+    if @object['content'].nil?
+      return false
+    else
+      content_text = convert_text(@object['content'])
+      is_reject = Setting.reject_pattern.present? && content_text =~ /#{Setting.reject_pattern}/
+      if is_reject
+        Rails.logger.error "rejected-string: " + (@object['atomUri'].present? ? @object['atomUri'] : '') + " | [" + content_text + "]"
+      end
+      return is_reject
+    end
+  end
+
   def create_status
-    return reject_payload! if unsupported_object_type? || non_matching_uri_hosts?(@account.uri, object_uri) || tombstone_exists? || !related_to_local_activity?
+    return reject_payload! if unsupported_object_type? || non_matching_uri_hosts?(@account.uri, object_uri) || tombstone_exists? || !related_to_local_activity? || reject_pattern?
 
     with_redis_lock("create:#{object_uri}") do
       Status.uncached do
@@ -58,7 +71,16 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
       attach_tags(@status)
       attach_mentions(@status)
       attach_counts(@status)
+
+      # Delete status on zero follower user and nearly created account with include some replies
+      if like_a_spam?
+        @status = nil
+        Rails.logger.error "rejected-algorithm: " + (@object['atomUri'].present? ? @object['atomUri'] : '') + ' | [' + convert_text(@object['content']) + ']'
+        raise ActiveRecord::Rollback
+      end
     end
+
+    return if @status.nil?
 
     resolve_thread(@status)
     resolve_unresolved_mentions(@status)
@@ -452,5 +474,25 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   rescue ActiveRecord::StaleObjectError
     poll.reload
     retry
+  end
+
+  def like_a_spam?
+    (
+      !@status.account.local? &&
+      @status.account.followers_count <= 1 &&
+      @status.account.created_at > 7.day.ago &&
+      @mentions.count >= 1
+    )
+  end
+
+  def convert_text(text_param)
+    return '' if text_param.nil?
+    text = text_param.to_s
+    text = text.gsub(/<(br|p).*?>/,' ')
+    text = ApplicationController.helpers.strip_tags(text)
+    text = text.gsub(/[\x00-\x20\u3000]+/, ' ')
+    text = text.strip
+    text += ' '
+    return text
   end
 end
