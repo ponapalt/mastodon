@@ -47,7 +47,16 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   end
 
   def reject_pattern?
-    Setting.reject_pattern.present? && @object['content']&.match?(Setting.reject_pattern)
+    if @object['content'].nil?
+      return false
+    else
+      content_text = convert_text(@object['content'])
+      is_reject = Setting.reject_pattern.present? && content_text =~ /#{Setting.reject_pattern}/
+      if is_reject
+        Rails.logger.error "rejected-string: " + (@object['atomUri'].present? ? @object['atomUri'] : '') + " | [" + content_text + "]"
+      end
+      return is_reject
+    end
   end
 
   def create_status
@@ -89,7 +98,16 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
     ApplicationRecord.transaction do
       @status = Status.create!(@params)
       attach_tags(@status)
+
+      # Delete status on zero follower user and nearly created account with include some replies
+      if like_a_spam?
+        @status = nil
+        Rails.logger.error "rejected-algorithm: " + (@object['atomUri'].present? ? @object['atomUri'] : '') + ' | [' + convert_text(@object['content']) + ']'
+        raise ActiveRecord::Rollback
+      end
     end
+
+    return if @status.nil?
 
     resolve_thread(@status)
     fetch_replies(@status)
@@ -435,5 +453,25 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   rescue ActiveRecord::StaleObjectError
     poll.reload
     retry
+  end
+
+  def like_a_spam?
+    (
+      !@status.account.local? &&
+      @status.account.followers_count <= 1 &&
+      @status.account.created_at > 7.day.ago &&
+      @mentions.count >= 2
+    )
+  end
+
+  def convert_text(text_param)
+    return '' if text_param.nil?
+    text = text_param
+    text = text.gsub(/<(br|p).*?>/,' ')
+    text = ApplicationController.helpers.strip_tags(text)
+    text = text.gsub(/[\x00-\x20\u3000]+/, ' ')
+    text = text.strip
+    text += ' '
+    return text
   end
 end
