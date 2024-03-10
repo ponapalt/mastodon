@@ -43,6 +43,12 @@ class NodeInfo::Serializer < ActiveModel::Serializer
       nodeDescription: Setting.site_short_description,
       optInServerDirectory: Setting.opt_in_server_directory,
       optInServerRecommendation: Setting.opt_in_server_recommendation,
+      
+      maintainer: {
+        name: 'ponapalt',
+      },
+
+      themeColor: '#B5C0FF',
     }
   end
 
