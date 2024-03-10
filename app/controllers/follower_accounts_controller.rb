@@ -38,6 +38,7 @@ class FollowerAccountsController < ApplicationController
 
     scope = Follow.where(target_account: @account)
     scope = scope.where.not(account_id: current_account.excluded_from_timeline_account_ids) if user_signed_in?
+    scope = scope.order(updated_at: :desc)
     @follows = scope.recent.page(params[:page]).per(FOLLOW_PER_PAGE).preload(:account)
   end
 
