@@ -41,6 +41,12 @@ class NodeInfo::Serializer < ActiveModel::Serializer
     {
       nodeName: Setting.site_title,
       nodeDescription: Setting.site_short_description,
+      
+      maintainer: {
+        name: 'ponapalt',
+      },
+
+      themeColor: '#B5C0FF',
     }
   end
 
