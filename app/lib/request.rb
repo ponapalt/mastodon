@@ -72,8 +72,54 @@ class Request
   def initialize(verb, url, **options)
     raise ArgumentError if url.blank?
 
+    # まずURLをパース
+    uri = Addressable::URI.parse(url)
+
+    # MisskeyContentの特殊ケース
+    if uri.host == 'media.misskeyusercontent.com'
+      uri.host = 'media.misskeyusercontent.jp'
+    # 他のドメインをリダイレクト
+    elsif %w[
+      seetake.net
+      pl.komittee.net
+      kiwifarms.cc
+      theboss.tech
+      freespeechextremist.com
+      warpday.net
+      m.tkngh.jp
+      norimono.moe
+      msk.hoshisaki-h.com
+      twinkaga.in
+      firmware.network
+      zwezo.o-k-i.net
+      tooters.org
+      fedi.slimegirl.social
+      mastindia.co
+      mastodon.lol
+      social.broti.net
+      m.servperso.net
+      cryptotooter.com
+      social.weho.st
+      fedi.astrid.tech
+      news.twtr.plus
+      bikeshed.party
+      praxis.nyc
+      forfuture.social
+      mental.camp
+      village.elrant.team
+      curbal.social
+      fedi.nano.lgbt
+      e-komik.org
+      misskey.backspace.fm
+      radical.town
+      permanently-removed.invalid
+    ].include?(uri.host)
+      uri.host = 'ukadon.shillest.net'
+      uri.path = '/gone'
+    end
+
     @verb        = verb
-    @url         = normalize_preserving_url_encodings(url, SAFE_PRESERVED_CHARS)
+    @url         = normalize_preserving_url_encodings(uri.to_s, SAFE_PRESERVED_CHARS)
     @http_client = options.delete(:http_client)
     @allow_local = options.delete(:allow_local)
     @options     = {
