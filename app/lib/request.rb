@@ -72,9 +72,68 @@ class Request
   def initialize(verb, url, **options)
     raise ArgumentError if url.blank?
 
+    # まずURLをパース
+    uri = Addressable::URI.parse(url)
+    @url_was_rewritten = false
+
+    # MisskeyContentの特殊ケース
+    if uri.host == 'media.misskeyusercontent.com'
+      uri.host = 'media.misskeyusercontent.jp'
+    # 他のドメインをリダイレクト
+    elsif %w[
+      seetake.net
+      pl.komittee.net
+      kiwifarms.cc
+      theboss.tech
+      freespeechextremist.com
+      warpday.net
+      m.tkngh.jp
+      norimono.moe
+      msk.hoshisaki-h.com
+      twinkaga.in
+      firmware.network
+      zwezo.o-k-i.net
+      tooters.org
+      fedi.slimegirl.social
+      mastindia.co
+      mastodon.lol
+      social.broti.net
+      m.servperso.net
+      cryptotooter.com
+      social.weho.st
+      fedi.astrid.tech
+      news.twtr.plus
+      bikeshed.party
+      praxis.nyc
+      forfuture.social
+      mental.camp
+      village.elrant.team
+      curbal.social
+      fedi.nano.lgbt
+      r2.ent.icu
+      wolfgirl.bar
+      femboys.love
+      jelliefrontier.net
+      akkoma.neoeden.org
+      pleroma.noellabo.jp
+      snouts.online
+      e-komik.org
+      misskey.backspace.fm
+      radical.town
+      permanently-removed.invalid
+      bae.st
+      img.mstdn.jp
+    ].include?(uri.host)
+      uri.host = 'ukadon.shillest.net'
+      uri.path = '/gone'
+      @url_was_rewritten = true
+    end
+
     @verb        = verb
-    @url         = normalize_preserving_url_encodings(url, SAFE_PRESERVED_CHARS)
-    @http_client = options.delete(:http_client)
+    @url         = normalize_preserving_url_encodings(uri.to_s, SAFE_PRESERVED_CHARS)
+    # http_clientオプションを削除（URLが書き換えられた場合は@http_clientに保存しない）
+    http_client_option = options.delete(:http_client)
+    @http_client = http_client_option unless @url_was_rewritten
     @allow_local = options.delete(:allow_local)
     @options     = {
       follow: {
@@ -213,6 +272,10 @@ class Request
   end
 
   def http_client
+    # URLが書き換えられた場合は永続接続を使わない
+    # これによりHTTP::StateErrorを回避する
+    return Request.http_client if @url_was_rewritten
+
     @http_client ||= Request.http_client
   end
 
