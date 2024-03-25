@@ -73,6 +73,17 @@ class Request
   def initialize(verb, url, **options)
     raise ArgumentError if url.blank?
 
+    url = url.gsub('https://media.misskeyusercontent.com', 'https://media.misskeyusercontent.jp')
+    url = url.gsub('https://seetake.net', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://pl.komittee.net', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://kiwifarms.cc', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://theboss.tech', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://freespeechextremist.com', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://warpday.net', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://m.tkngh.jp', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://norimono.moe', 'https://ukadon.shillest.net/gone')
+    url = url.gsub('https://msk.hoshisaki-h.com', 'https://ukadon.shillest.net/gone')
+
     @verb        = verb
     @url         = Addressable::URI.parse(url).normalize
     @http_client = options.delete(:http_client)
