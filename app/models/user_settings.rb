@@ -27,11 +27,11 @@ class UserSettings
     setting :use_system_font, default: false
     setting :use_system_scrollbars, default: false
     setting :disable_swiping, default: false
-    setting :disable_hover_cards, default: false
+    setting :disable_hover_cards, default: true
     setting :delete_modal, default: true
     setting :reblog_modal, default: false
     setting :quick_boosting, default: false
-    setting :missing_alt_text_modal, default: true
+    setting :missing_alt_text_modal, default: false
     setting :reduce_motion, default: false
     setting :expand_content_warnings, default: false
     setting :display_media, default: 'default', in: %w(default show_all hide_all)
@@ -45,12 +45,12 @@ class UserSettings
     setting :follow, default: true
     setting :reblog, default: false
     setting :favourite, default: false
-    setting :mention, default: true
-    setting :quote, default: true
+    setting :mention, default: false
+    setting :quote, default: false
     setting :follow_request, default: true
     setting :report, default: true
     setting :pending_account, default: true
-    setting :trends, default: true
+    setting :trends, default: false
     setting :appeal, default: true
     setting :software_updates, default: 'critical', in: %w(none critical patch all)
   end
