@@ -25,7 +25,7 @@ class UserSettings
     setting :use_pending_items, default: false
     setting :use_system_font, default: false
     setting :disable_swiping, default: false
-    setting :disable_hover_cards, default: false
+    setting :disable_hover_cards, default: true
     setting :delete_modal, default: true
     setting :reblog_modal, default: false
     setting :reduce_motion, default: false
