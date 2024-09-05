@@ -2980,7 +2980,7 @@ a.account__display-name {
 }
 
 .column {
-  width: clamp(380px, calc((100% - 350px) / 4), 400px);
+  width: clamp(330px, calc((100% - 30px) / 4), 350px);
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -3022,7 +3022,7 @@ a.account__display-name {
 }
 
 .drawer {
-  width: 350px;
+  width: 300px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -10608,12 +10608,12 @@ noscript {
 .notification-group {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  padding: 16px 24px;
+  gap: 4px;
+  padding: 8px;
   border-bottom: 1px solid var(--background-border-color);
 
   &__icon {
-    width: 40px;
+    width: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10791,7 +10791,7 @@ noscript {
 }
 
 .notification-ungrouped {
-  padding: 16px 24px;
+  padding: 8px;
   border-bottom: 1px solid var(--background-border-color);
 
   &__header {
