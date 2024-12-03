@@ -147,6 +147,8 @@ class FetchLinkCardService < BaseService
     end
 
     @card.save_with_optional_image!
+  rescue Encoding::InvalidByteSequenceError
+    return false
   end
 
   def attempt_opengraph
@@ -161,5 +163,7 @@ class FetchLinkCardService < BaseService
     @card.assign_attributes(link_details_extractor.to_preview_card_attributes)
     @card.author_account = linked_account if linked_account&.can_be_attributed_from?(domain) || provider&.trendable?
     @card.save_with_optional_image! unless @card.title.blank? && @card.html.blank?
+  rescue Encoding::InvalidByteSequenceError
+    return
   end
 end
