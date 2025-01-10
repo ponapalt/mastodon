@@ -1023,8 +1023,9 @@ body > [data-popper-placement] {
   font-size: inherit;
   vertical-align: middle;
   object-fit: contain;
-  margin: -0.2ex 0.15em 0.2ex;
-  width: 16px;
+  margin: 0;
+  width: unset !important;
+  max-width: min(100%, 10em);
   height: 16px;
 
   img {
@@ -11459,4 +11460,33 @@ noscript {
     align-items: center;
     gap: 4px;
   }
+}
+
+
+@keyframes spin_stamp {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+.detailed-status .status__content p .emojione[alt^=":stamp_"],
+p .emojione[alt^=":stamp_"],
+.notification__message .emojione[alt^=":stamp_"]
+{
+    height: auto !important;
+    width: auto !important;
+    max-height: 110px !important;
+    max-width: 110px !important;
+    object-fit: contain !important;
+    vertical-align: bottom !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.detailed-status .status__content p .emojione[alt$="_spin:"],
+p .emojione[alt$="_spin:"],
+.notification__message .emojione[alt$="_spin:"]
+{
+    animation: spin_stamp 1.5s linear infinite;
 }
