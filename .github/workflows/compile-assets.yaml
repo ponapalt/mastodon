@@ -1,0 +1,109 @@
+name: Compile Mastodon Assets
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # 手動実行も可能に
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      # 必要な依存パッケージをインストール
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            imagemagick ffmpeg libvips-tools libpq-dev libxml2-dev libxslt1-dev file git-core \
+            g++ libprotobuf-dev protobuf-compiler pkg-config gcc autoconf \
+            bison build-essential libssl-dev libyaml-dev libreadline6-dev \
+            zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev \
+            nginx nodejs redis-server redis-tools postgresql postgresql-contrib \
+            certbot python3-certbot-nginx libidn11-dev libicu-dev libjemalloc-dev
+      
+      # Corepackを事前に有効化（Node.jsセットアップ前）
+      - name: Enable Corepack
+        run: |
+          corepack enable
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      
+      # 指定されたYarnバージョンを準備
+      - name: Prepare Yarn version
+        run: |
+          corepack prepare yarn@stable --activate
+          yarn --version
+      
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      
+      - name: Install dependencies
+        run: |
+          bundle install
+          yarn install
+      
+      # GitHub Secretsから環境変数を設定してアセットコンパイル
+      - name: Compile assets
+        env:
+          RAILS_ENV: production
+          NODE_ENV: production
+          OTP_SECRET: ${{ secrets.OTP_SECRET }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY }}
+          ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY }}
+          ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT }}
+        run: |
+          bundle exec rails assets:precompile
+          tar -czf compiled-assets.tar.gz public/packs
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mastodon-assets
+          path: compiled-assets.tar.gz
+          retention-days: 7
+
+      # GitHub Pagesで公開するディレクトリを作成
+      # サーバ側は compiled-assets.tar.gz を取得し、sha256 と照合してから展開する
+      - name: Prepare Pages directory
+        run: |
+          mkdir -p pages-site
+          cp compiled-assets.tar.gz pages-site/
+          (cd pages-site && sha256sum compiled-assets.tar.gz > compiled-assets.tar.gz.sha256)
+          echo "${{ github.sha }}" > pages-site/REVISION
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
