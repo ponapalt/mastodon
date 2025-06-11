@@ -27,7 +27,7 @@ class Admin::SystemCheck::MediaPrivacyCheck < Admin::SystemCheck::BaseCheck
   end
 
   def check_media_listing_inaccessible!
-    full_url = full_asset_url(media_attachment.file.url(:original, false))
+    full_url = full_media_url(media_attachment.file.url(:original, false))
 
     # Check if we can list the uploaded file. If true, that's an error
     directory_url = Addressable::URI.parse(full_url)
