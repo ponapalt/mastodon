@@ -219,7 +219,7 @@ class ActivityPub::NoteSerializer < ActivityPub::Serializer
     end
 
     def url
-      object.local? ? full_asset_url(object.file.url(:original, false)) : object.remote_url
+      object.local? ? full_media_url(object.file.url(:original, false)) : object.remote_url
     end
 
     def focal_point?

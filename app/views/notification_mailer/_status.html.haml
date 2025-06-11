@@ -23,7 +23,7 @@
           %p.email-status-media
             - status.ordered_media_attachments.each do |a|
               - if status.local?
-                = link_to full_asset_url(a.file.url(:original)), full_asset_url(a.file.url(:original))
+                = link_to full_media_url(a.file.url(:original)), full_media_url(a.file.url(:original))
               - else
                 = link_to a.remote_url, a.remote_url
 

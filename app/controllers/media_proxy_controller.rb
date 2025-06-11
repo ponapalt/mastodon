@@ -22,7 +22,7 @@ class MediaProxyController < ApplicationController
       redownload! if @media_attachment.needs_redownload? && !reject_media?
     end
 
-    redirect_to full_asset_url(@media_attachment.file.url(version)), allow_other_host: true
+    redirect_to full_media_url(@media_attachment.file.url(version)), allow_other_host: true
   end
 
   private
