@@ -23,15 +23,23 @@ module RoutingHelper
   def full_media_url(source, **)
     source = ActionController::Base.helpers.asset_url(source, **) unless use_storage?
 
-    URI.join(media_asset_host, source).to_s
+    URI.join(media_asset_host(source), source).to_s
   end
 
   def asset_host
     Rails.configuration.action_controller.asset_host || root_url
   end
 
-  def media_asset_host
-    ENV['DISABLE_CDN_FOR_MEDIA'] == 'true' ? root_url : asset_host
+  def media_asset_host(source = nil)
+    if ENV['DISABLE_CDN_FOR_MEDIA'] == 'true' && bypass_cdn_for?(source)
+      root_url
+    else
+      asset_host
+    end
+  end
+
+  def bypass_cdn_for?(source)
+    source.present? && !source.start_with?('http', 'https') && source.include?('/original/')
   end
 
   def frontend_asset_path(source, **)
