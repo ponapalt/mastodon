@@ -17,7 +17,9 @@ module RoutingHelper
   def full_asset_url(source, **)
     source = ActionController::Base.helpers.asset_url(source, **) unless use_storage?
 
-    URI.join(asset_host, source).to_s
+    host = source.to_s.include?('/original/') ? root_url : asset_host
+
+    URI.join(host, source).to_s
   end
 
   def expiring_asset_url(attachment, expires_in)
