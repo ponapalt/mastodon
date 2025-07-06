@@ -266,7 +266,13 @@ module ApplicationHelper
   end
 
   def within_authorization_flow?
-    session[:user_return_to].present? && Rails.application.routes.recognize_path(session[:user_return_to])[:controller] == 'oauth/authorizations'
+    return false unless defined?(session) && session&.[](:user_return_to)&.present?
+
+    begin
+      Rails.application.routes.recognize_path(session[:user_return_to])[:controller] == 'oauth/authorizations'
+    rescue ActionController::RoutingError, NoMethodError
+      false
+    end
   end
 
   private
