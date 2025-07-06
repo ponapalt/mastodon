@@ -35,6 +35,7 @@ class ActivityPub::TagManager
   end
 
   def uri_for(target)
+    return nil if target.nil?
     return target.uri if target.respond_to?(:local?) && !target.local?
 
     case target.object_type
