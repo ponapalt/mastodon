@@ -151,10 +151,44 @@ const AutosuggestTextarea = forwardRef(({
 
   const handlePaste = useCallback((e) => {
     if (e.clipboardData && e.clipboardData.files.length === 1) {
-      onPaste(e.clipboardData.files);
-      e.preventDefault();
+      const plainText = e.clipboardData.getData('text/plain');
+      const htmlText = e.clipboardData.getData('text/html');
+      
+      if (!plainText && htmlText) {
+        // Extract plain text from HTML for formatted text on Android
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlText;
+        const extractedText = tempDiv.textContent || tempDiv.innerText || '';
+        
+        if (extractedText.trim()) {
+          // Use the extracted plain text instead of uploading as file
+          const textarea = textareaRef.current;
+          if (textarea) {
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const currentValue = textarea.value;
+            const newValue = currentValue.substring(0, start) + extractedText + currentValue.substring(end);
+            
+            // Create a synthetic event to trigger onChange
+            const syntheticEvent = {
+              target: {
+                value: newValue,
+                selectionStart: start + extractedText.length
+              }
+            };
+            handleChange(syntheticEvent);
+          }
+          e.preventDefault();
+          return;
+        }
+      }
+      
+      if (!plainText) {
+        onPaste(e.clipboardData.files);
+        e.preventDefault();
+      }
     }
-  }, [onPaste]);
+  }, [onPaste, handleChange, textareaRef]);
 
   // Show the suggestions again whenever they change and the textarea is focused
   useEffect(() => {
