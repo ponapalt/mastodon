@@ -149,7 +149,7 @@ const AutosuggestTextarea = forwardRef(({
   }, [suggestions, onSuggestionSelected, textareaRef]);
 
   const handlePaste = useCallback((e) => {
-    if (e.clipboardData && e.clipboardData.files.length === 1) {
+    if (e.clipboardData && e.clipboardData.files.length === 1 && !e.clipboardData.getData('text/plain')) {
       onPaste(e.clipboardData.files);
       e.preventDefault();
     }
