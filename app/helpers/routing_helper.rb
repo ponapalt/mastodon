@@ -20,6 +20,12 @@ module RoutingHelper
     URI.join(asset_host, source).to_s
   end
 
+  def origin_asset_url(source, **)
+    source = ActionController::Base.helpers.asset_url(source, **) unless use_storage?
+
+    URI.join(root_url, source).to_s
+  end
+
   def expiring_asset_url(attachment, expires_in)
     case Paperclip::Attachment.default_options[:storage]
     when :s3, :azure
