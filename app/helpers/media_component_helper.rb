@@ -8,7 +8,7 @@ module MediaComponentHelper
 
     component_params = {
       sensitive: sensitive_viewer?(status, current_account),
-      src: full_asset_url(video.file.url(:original)),
+      src: origin_asset_url(video.file.url(:original)),
       preview: full_asset_url(video.thumbnail.present? ? video.thumbnail.url : video.file.url(:small)),
       alt: video.description,
       lang: status.language,
@@ -31,7 +31,7 @@ module MediaComponentHelper
     meta = audio.file.meta || {}
 
     component_params = {
-      src: full_asset_url(audio.file.url(:original)),
+      src: origin_asset_url(audio.file.url(:original)),
       poster: full_asset_url(audio.thumbnail.present? ? audio.thumbnail.url : status.account.avatar_static_url),
       alt: audio.description,
       lang: status.language,
