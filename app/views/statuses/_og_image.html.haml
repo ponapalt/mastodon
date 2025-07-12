@@ -2,7 +2,7 @@
   - player_card = false
   - status.ordered_media_attachments.each do |media|
     - if media.image?
-      = opengraph 'og:image', full_asset_url(media.file.url(:original))
+      = opengraph 'og:image', origin_asset_url(media.file.url(:original))
       = opengraph 'og:image:type', media.file_content_type
       - unless media.file.meta.nil?
         = opengraph 'og:image:width', media.file.meta.dig('original', 'width')
@@ -16,11 +16,11 @@
       - unless media.file.meta.nil?
         = opengraph 'og:image:width', media.file.meta.dig('small', 'width')
         = opengraph 'og:image:height', media.file.meta.dig('small', 'height')
-      = opengraph 'og:video', full_asset_url(media.file.url(:original))
-      = opengraph 'og:video:secure_url', full_asset_url(media.file.url(:original))
+      = opengraph 'og:video', origin_asset_url(media.file.url(:original))
+      = opengraph 'og:video:secure_url', origin_asset_url(media.file.url(:original))
       = opengraph 'og:video:type', media.file_content_type
       = opengraph 'twitter:player', medium_player_url(media)
-      = opengraph 'twitter:player:stream', full_asset_url(media.file.url(:original))
+      = opengraph 'twitter:player:stream', origin_asset_url(media.file.url(:original))
       = opengraph 'twitter:player:stream:content_type', media.file_content_type
       - unless media.file.meta.nil?
         = opengraph 'og:video:width', media.file.meta.dig('original', 'width')
@@ -32,11 +32,11 @@
       = opengraph 'og:image', full_asset_url(account.avatar.url(:original))
       = opengraph 'og:image:width', '400'
       = opengraph 'og:image:height', '400'
-      = opengraph 'og:audio', full_asset_url(media.file.url(:original))
-      = opengraph 'og:audio:secure_url', full_asset_url(media.file.url(:original))
+      = opengraph 'og:audio', origin_asset_url(media.file.url(:original))
+      = opengraph 'og:audio:secure_url', origin_asset_url(media.file.url(:original))
       = opengraph 'og:audio:type', media.file_content_type
       = opengraph 'twitter:player', medium_player_url(media)
-      = opengraph 'twitter:player:stream', full_asset_url(media.file.url(:original))
+      = opengraph 'twitter:player:stream', origin_asset_url(media.file.url(:original))
       = opengraph 'twitter:player:stream:content_type', media.file_content_type
       = opengraph 'twitter:player:width', '670'
       = opengraph 'twitter:player:height', '380'
