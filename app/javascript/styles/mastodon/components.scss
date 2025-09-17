@@ -630,6 +630,17 @@ body > [data-popper-placement] {
     flex-wrap: wrap;
   }
 
+  &__visibility-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    & > div {
+      overflow: hidden;
+      display: flex;
+    }
+  }
+
   &__uploads {
     padding: 0 12px;
     aspect-ratio: 3/2;
