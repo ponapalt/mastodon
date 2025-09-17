@@ -859,7 +859,11 @@
   "status.mute_conversation": "会話をミュート",
   "status.open": "詳細を表示",
   "status.pin": "プロフィールに固定表示",
+  "status.quote": "引用",
+  "status.quote.cancel": "引用をキャンセル",
   "status.quote_error.filtered": "あなたのフィルター設定によって非表示になっています",
+  "status.quote_policy_change": "誰が引用できるかを変更",
+  "status.quote_post_author": "@{name} の投稿を引用",
   "status.read_more": "もっと見る",
   "status.reblog": "ブースト",
   "status.reblogged_by": "{name}さんがブースト",
@@ -932,5 +936,8 @@
   "video.skip_forward": "前方にスキップ",
   "video.unmute": "ミュート解除",
   "video.volume_down": "音量を下げる",
-  "video.volume_up": "音量を上げる"
+  "video.volume_up": "音量を上げる",
+  "visibility_modal.quote_followers": "フォロワーのみ",
+  "visibility_modal.quote_nobody": "私だけ",
+  "visibility_modal.quote_public": "誰でも"
 }

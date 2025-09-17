@@ -1831,6 +1831,10 @@ ja:
       limit: 固定できる投稿数の上限に達しました
       ownership: 他人の投稿を固定することはできません
       reblog: ブーストを固定することはできません
+    quote_policies:
+      followers: フォロワーのみ
+      nobody: 私だけ
+      public: 誰でも
     title: '%{name}: "%{quote}"'
     visibilities:
       public: 公開
