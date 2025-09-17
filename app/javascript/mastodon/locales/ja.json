@@ -876,6 +876,8 @@
   "status.quote_error.pending_approval": "承認待ちの投稿",
   "status.quote_noun": "引用",
   "status.quotes": "{count, plural, other {引用}}",
+  "status.quote_policy_change": "誰が引用できるかを変更",
+  "status.quote_post_author": "@{name} の投稿を引用",
   "status.read_more": "もっと見る",
   "status.reblog": "ブースト",
   "status.reblog_or_quote": "ブーストか引用",
