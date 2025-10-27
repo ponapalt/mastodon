@@ -53,7 +53,7 @@ export const Announcements: FC = () => {
       return;
     }
 
-    const currentAnnouncement = announcements[announcements.length - 1 - currentIndex];
+    const currentAnnouncement = announcements[currentIndex];
     if (currentAnnouncement && !currentAnnouncement.announcement.read) {
       dispatch(dismissAnnouncement(currentAnnouncement.announcement.id));
     }
