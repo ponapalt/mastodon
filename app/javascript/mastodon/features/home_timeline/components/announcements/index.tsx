@@ -1,14 +1,15 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 
 import type { Map, List } from 'immutable';
 
 import elephantUIPlane from '@/images/elephant_ui_plane.svg';
+import { dismissAnnouncement } from '@/mastodon/actions/announcements';
 import type { RenderSlideFn } from '@/mastodon/components/carousel';
 import { Carousel } from '@/mastodon/components/carousel';
 import { CustomEmojiProvider } from '@/mastodon/components/emoji/context';
 import { mascot } from '@/mastodon/initial_state';
-import { createAppSelector, useAppSelector } from '@/mastodon/store';
+import { createAppSelector, useAppDispatch, useAppSelector } from '@/mastodon/store';
 
 import type { IAnnouncement } from './announcement';
 import { Announcement } from './announcement';
@@ -22,8 +23,11 @@ const announcementSelector = createAppSelector(
 );
 
 export const Announcements: FC = () => {
+  const dispatch = useAppDispatch();
+
   const announcements = useAppSelector(announcementSelector);
   const emojis = useAppSelector((state) => state.custom_emojis);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const renderSlide: RenderSlideFn<{
     id: string;
@@ -38,6 +42,22 @@ export const Announcements: FC = () => {
     ),
     [],
   );
+
+  const handleSlideChange = useCallback((index: number) => {
+    setCurrentIndex(index);
+  }, []);
+
+  // Mark the currently displayed announcement as read
+  useEffect(() => {
+    if (announcements.length === 0) {
+      return;
+    }
+
+    const currentAnnouncement = announcements[announcements.length - 1 - currentIndex];
+    if (currentAnnouncement && !currentAnnouncement.announcement.read) {
+      dispatch(dismissAnnouncement(currentAnnouncement.announcement.id));
+    }
+  }, [dispatch, announcements, currentIndex]);
 
   if (announcements.length === 0) {
     return null;
@@ -57,6 +77,7 @@ export const Announcements: FC = () => {
           classNamePrefix='announcements'
           renderItem={renderSlide}
           items={announcements}
+          onChangeSlide={handleSlideChange}
         />
       </CustomEmojiProvider>
     </div>
