@@ -43,7 +43,37 @@ const addReaction = (state, id, name) => updateReaction(state, id, name, x => x.
 
 const removeReaction = (state, id, name) => updateReaction(state, id, name, x => x.set('me', false).update('count', y => y - 1));
 
-const sortAnnouncements = list => list.sortBy(x => x.get('starts_at') || x.get('published_at'));
+const sortAnnouncements = list => list.sort((a, b) => {
+  const aStartsAt = a.get('starts_at');
+  const bStartsAt = b.get('starts_at');
+  const aPublishedAt = a.get('published_at');
+  const bPublishedAt = b.get('published_at');
+
+  // Group 1: Announcements without starts_at (sorted by published_at, newest first)
+  // Group 2: Announcements with starts_at (sorted by starts_at, newest first)
+  // Note: The display component reverses the array, so we sort in descending order here
+
+  const aHasStartsAt = !!aStartsAt;
+  const bHasStartsAt = !!bStartsAt;
+
+  // If both have no starts_at, sort by published_at (newest first)
+  if (!aHasStartsAt && !bHasStartsAt) {
+    return new Date(bPublishedAt) - new Date(aPublishedAt);
+  }
+
+  // If both have starts_at, sort by starts_at (newest first)
+  if (aHasStartsAt && bHasStartsAt) {
+    return new Date(bStartsAt) - new Date(aStartsAt);
+  }
+
+  // If only a has no starts_at, a comes last (will be first after reverse)
+  if (!aHasStartsAt && bHasStartsAt) {
+    return 1;
+  }
+
+  // If only b has no starts_at, b comes last (will be first after reverse)
+  return -1;
+});
 
 const updateAnnouncement = (state, announcement) => {
   const idx = state.get('items').findIndex(x => x.get('id') === announcement.get('id'));
@@ -70,7 +100,7 @@ export default function announcementsReducer(state = initialState, action) {
     return state.withMutations(map => {
       const items = fromJS(action.announcements);
 
-      map.set('items', items);
+      map.set('items', sortAnnouncements(items));
       map.set('isLoading', false);
     });
   case ANNOUNCEMENTS_FETCH_FAIL:
