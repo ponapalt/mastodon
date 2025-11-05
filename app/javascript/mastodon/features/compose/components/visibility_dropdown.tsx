@@ -6,7 +6,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import classNames from 'classnames';
 import Overlay from 'react-overlays/Overlay';
 
-import { changeComposeVisibility } from '@/mastodon/actions/compose';
+import { changeComposeVisibility } from '@/mastodon/actions/compose_typed';
 import type { StatusVisibility } from '@/mastodon/api_types/statuses';
 import { isStatusVisibility } from '@/mastodon/api_types/statuses';
 import type { SelectItem } from '@/mastodon/components/dropdown_selector';
