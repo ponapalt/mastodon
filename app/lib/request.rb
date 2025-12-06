@@ -122,7 +122,9 @@ class Request
 
     @verb        = verb
     @url         = normalize_preserving_url_encodings(uri.to_s, SAFE_PRESERVED_CHARS)
-    @http_client = options.delete(:http_client) unless @url_was_rewritten
+    # http_clientオプションを削除（URLが書き換えられた場合は@http_clientに保存しない）
+    http_client_option = options.delete(:http_client)
+    @http_client = http_client_option unless @url_was_rewritten
     @allow_local = options.delete(:allow_local)
     @options     = {
       follow: {
