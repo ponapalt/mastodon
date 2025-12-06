@@ -74,6 +74,7 @@ class Request
 
     # まずURLをパース
     uri = Addressable::URI.parse(url)
+    @url_was_rewritten = false
 
     # MisskeyContentの特殊ケース
     if uri.host == 'media.misskeyusercontent.com'
@@ -116,11 +117,12 @@ class Request
     ].include?(uri.host)
       uri.host = 'ukadon.shillest.net'
       uri.path = '/gone'
+      @url_was_rewritten = true
     end
 
     @verb        = verb
     @url         = normalize_preserving_url_encodings(uri.to_s, SAFE_PRESERVED_CHARS)
-    @http_client = options.delete(:http_client)
+    @http_client = options.delete(:http_client) unless @url_was_rewritten
     @allow_local = options.delete(:allow_local)
     @options     = {
       follow: {
@@ -259,6 +261,10 @@ class Request
   end
 
   def http_client
+    # URLが書き換えられた場合は永続接続を使わない
+    # これによりHTTP::StateErrorを回避する
+    return Request.http_client if @url_was_rewritten
+
     @http_client ||= Request.http_client
   end
 
