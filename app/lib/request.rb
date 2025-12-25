@@ -121,6 +121,7 @@ class Request
       misskey.backspace.fm
       radical.town
       permanently-removed.invalid
+      img.mstdn.jp
     ].include?(uri.host)
       uri.host = 'ukadon.shillest.net'
       uri.path = '/gone'
