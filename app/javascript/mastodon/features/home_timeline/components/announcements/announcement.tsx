@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { FormattedDate, FormattedMessage } from 'react-intl';
 
@@ -7,6 +7,7 @@ import { dismissAnnouncement } from '@/mastodon/actions/announcements';
 import type { ApiAnnouncementJSON } from '@/mastodon/api_types/announcements';
 import { AnimateEmojiProvider } from '@/mastodon/components/emoji/context';
 import { EmojiHTML } from '@/mastodon/components/emoji/html';
+import { useElementHandledLink } from '@/mastodon/components/status/handled_link';
 import { useAppDispatch } from '@/mastodon/store';
 
 import { ReactionsBar } from './reactions';
@@ -33,6 +34,12 @@ export const Announcement: FC<AnnouncementProps> = ({
       dispatch(dismissAnnouncement(id));
     }
   }, [active, id, dispatch, read]);
+
+  const hrefToMention = useCallback(
+    (href: string) => announcement.mentions.find((m) => m.url === href),
+    [announcement.mentions],
+  );
+  const htmlHandlers = useElementHandledLink({ hrefToMention });
 
   // But visually show the announcement as read only when it goes out of view.
   const [isVisuallyRead, setIsVisuallyRead] = useState(read);
@@ -64,6 +71,7 @@ export const Announcement: FC<AnnouncementProps> = ({
         className='announcements__content translate'
         htmlString={announcement.contentHtml}
         extraEmojis={announcement.emojis}
+        {...htmlHandlers}
       />
 
       <ReactionsBar reactions={announcement.reactions} id={announcement.id} />
