@@ -358,7 +358,7 @@ class EmojiPickerDropdown extends PureComponent {
           onClose={this.onHideDropdown}
         >
           {({ props, placement }) => (
-            <div  {...props} className={`dropdown-animation ${placement}`}>
+            <div {...props} className={`dropdown-animation ${placement} emoji-picker-main`}>
               <EmojiPickerMenu
                 loading={loading}
                 onClose={this.onHideDropdown}
