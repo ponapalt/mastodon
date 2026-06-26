@@ -211,6 +211,7 @@ export const EmojiDropdown: React.FC<
       {...props}
       className={classNames(
         'dropdown-animation',
+        'emoji-picker-main',
         classes.emojiRoot,
         className,
         open && 'selecting',
