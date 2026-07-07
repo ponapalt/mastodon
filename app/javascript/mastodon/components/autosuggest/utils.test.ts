@@ -8,7 +8,7 @@ describe('textAtCursorMatchesToken', () => {
     ],
     [
       ['#hash tag', 8, ['#']],
-      [1, '#hash tag'],
+      [null, null],
     ],
     [
       [':+1', 2, [':']],
@@ -24,7 +24,15 @@ describe('textAtCursorMatchesToken', () => {
     ],
     [
       ['#ハッシュ タグ', 7, ['#']],
-      [1, '#ハッシュ タグ'],
+      [null, null],
+    ],
+    [
+      ['@testuser ', 10, ['@']],
+      [null, null],
+    ],
+    [
+      ['@testuser x', 11, ['@']],
+      [null, null],
     ],
   ] as const)(
     'textAtCursorMatchesToken(%s) is %o',
