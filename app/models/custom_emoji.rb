@@ -38,11 +38,14 @@ class CustomEmoji < ApplicationRecord
 
   IMAGE_MIME_TYPES = %w(image/png image/gif image/webp).freeze
 
+  CUSTOM_EMOJI_ALIAS_HOST = ENV.fetch('CUSTOM_EMOJI_ALIAS_HOST', nil)
+
   belongs_to :category, class_name: 'CustomEmojiCategory', optional: true
 
   has_one :local_counterpart, -> { where(domain: nil) }, class_name: 'CustomEmoji', primary_key: :shortcode, foreign_key: :shortcode, inverse_of: false, dependent: nil
 
-  has_attached_file :image, styles: { static: { format: 'png', convert_options: '-coalesce +profile "!icc,*" +set date:modify +set date:create +set date:timestamp', file_geometry_parser: FastGeometryParser } }, validate_media_type: false, processors: [:lazy_thumbnail]
+  has_attached_file :image, styles: { static: { format: 'png', convert_options: '-coalesce +profile "!icc,*" +set date:modify +set date:create +set date:timestamp', file_geometry_parser: FastGeometryParser } }, validate_media_type: false, processors: [:lazy_thumbnail],
+                             **(CUSTOM_EMOJI_ALIAS_HOST.present? ? { url: "#{Rails.configuration.x.use_https ? 'https' : 'http'}://#{CUSTOM_EMOJI_ALIAS_HOST}#{ENV.fetch('PAPERCLIP_ROOT_URL', '/system')}/#{PATH}" } : {})
 
   normalizes :domain, with: ->(domain) { domain.downcase.strip }
 
