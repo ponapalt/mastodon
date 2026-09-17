@@ -16,6 +16,7 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :check_account_approval, except: [:index, :create]
   before_action :check_account_confirmation, except: [:index, :create]
   before_action :check_enabled_registrations, only: [:create]
+  before_action :check_registration_interval, only: [:create]
   before_action :check_accounts_limit, only: [:index]
   before_action :check_following_self, only: [:follow]
 
@@ -129,5 +130,11 @@ class Api::V1::AccountsController < Api::BaseController
 
   def check_enabled_registrations
     forbidden if ENV['SSO_ACCOUNT_SIGN_UP'].present? || !allowed_registration?(request.remote_ip, invite)
+  end
+
+  # Deliberately reuses the generic temporary-failure message so that the
+  # server-wide sign-up interval is not advertised to automated sign-ups
+  def check_registration_interval
+    render json: { error: I18n.t('errors.503') }, status: 503 unless registration_interval_elapsed?
   end
 end
