@@ -223,6 +223,34 @@ RSpec.describe '/api/v1/accounts' do
       end
     end
 
+    context 'when a sign-up happened within the registration interval' do
+      let(:agreement) { 'true' }
+
+      before { Fabricate(:user, sign_up_ip: '10.0.0.1', created_at: 1.hour.ago) }
+
+      it 'returns http service unavailable and creates no user' do
+        expect { subject }
+          .to not_change(User, :count)
+          .and not_change(Account, :count)
+
+        expect(response).to have_http_status(503)
+        expect(response.content_type)
+          .to start_with('application/json')
+      end
+    end
+
+    context 'when the last sign-up is older than the registration interval' do
+      let(:agreement) { 'true' }
+
+      before { Fabricate(:user, sign_up_ip: '10.0.0.1', created_at: 3.hours.ago) }
+
+      it 'creates a user' do
+        expect { subject }.to change(User, :count).by(1)
+
+        expect(response).to have_http_status(200)
+      end
+    end
+
     context 'when given no agreement' do
       it 'returns http unprocessable entity' do
         subject
