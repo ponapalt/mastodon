@@ -37,6 +37,19 @@ RSpec.describe 'Auth Registrations' do
   describe 'GET /auth/sign_up' do
     subject { get new_user_registration_path }
 
+    context 'when a sign-up happened within the registration interval' do
+      before do
+        Setting.registrations_mode = 'open'
+        Fabricate(:user, sign_up_ip: '10.0.0.1', created_at: 1.hour.ago)
+      end
+
+      it 'redirects to sign in' do
+        subject
+
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
     it_behaves_like 'registration mode based responses'
   end
 
@@ -243,6 +256,70 @@ RSpec.describe 'Auth Registrations' do
 
       def date_of_birth_error_text
         response.parsed_body.css('.user_date_of_birth .error').text
+      end
+    end
+
+    context 'when a sign-up happened within the registration interval' do
+      subject do
+        Setting.registrations_mode = 'open'
+        post user_registration_path, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'true' } }
+      end
+
+      before { Fabricate(:user, sign_up_ip: '10.0.0.1', created_at: 1.hour.ago) }
+
+      it 'does not create a user or account and redirects to sign in' do
+        expect { subject }
+          .to not_change(User, :count)
+          .and not_change(Account, :count)
+
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'when the last sign-up is older than the registration interval' do
+      subject do
+        Setting.registrations_mode = 'open'
+        post user_registration_path, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'true' } }
+      end
+
+      before { Fabricate(:user, sign_up_ip: '10.0.0.1', created_at: 3.hours.ago) }
+
+      it 'creates a user' do
+        expect { subject }.to change(User, :count).by(1)
+
+        expect(response).to redirect_to auth_setup_path
+      end
+    end
+
+    context 'when an account created by an admin happened within the registration interval' do
+      subject do
+        Setting.registrations_mode = 'open'
+        post user_registration_path, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'true' } }
+      end
+
+      before { Fabricate(:user, sign_up_ip: nil, created_at: 1.minute.ago) }
+
+      it 'creates a user' do
+        expect { subject }.to change(User, :count).by(1)
+
+        expect(response).to redirect_to auth_setup_path
+      end
+    end
+
+    context 'when an invite is used within the registration interval' do
+      subject do
+        Setting.registrations_mode = 'none'
+        post user_registration_path, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'true', invite_code: invite.code } }
+      end
+
+      let(:invite) { Fabricate(:invite, max_uses: nil, expires_at: 1.hour.from_now) }
+
+      before { Fabricate(:user, sign_up_ip: '10.0.0.1', created_at: 1.hour.ago) }
+
+      it 'does not create a user and redirects to sign in' do
+        expect { subject }.to not_change(User, :count)
+
+        expect(response).to redirect_to new_user_session_path
       end
     end
   end
