@@ -8,6 +8,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   before_action :set_invite, only: [:new, :create]
   before_action :check_enabled_registrations, only: [:new, :create]
+  before_action :check_registration_interval, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
   before_action :set_sessions, only: [:edit, :update]
   before_action :set_strikes, only: [:edit, :update]
@@ -90,6 +91,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def check_enabled_registrations
     redirect_to new_user_session_path, alert: I18n.t('devise.failure.closed_registrations', email: Setting.site_contact_email) unless allowed_registration?(request.remote_ip, @invite)
+  end
+
+  # Deliberately reuses the generic temporary-failure message so that the
+  # server-wide sign-up interval is not advertised to automated sign-ups
+  def check_registration_interval
+    redirect_to new_user_session_path, alert: I18n.t('errors.503') unless registration_interval_elapsed?
   end
 
   def invite_code
