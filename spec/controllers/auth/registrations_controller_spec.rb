@@ -226,6 +226,23 @@ RSpec.describe Auth::RegistrationsController do
       end
     end
 
+    context 'when the reason for joining contains blocked keywords' do
+      subject do
+        Setting.registrations_mode = 'approved'
+        post :create, params: { user: { account_attributes: { username: 'test' }, invite_request_attributes: { text: "Hi!\nAutomated Protocol Deliverability probe" }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'true' } }
+      end
+
+      it 'does not create a user, account or e-mail' do
+        expect { subject }
+          .to not_change(User, :count)
+          .and not_change(Account, :count)
+          .and not_change(UserInviteRequest, :count)
+          .and not_change { ActionMailer::Base.deliveries.size }
+
+        expect(response).to have_http_status(200)
+      end
+    end
+
     context 'when user has an email address requiring approval' do
       subject do
         request.headers['Accept-Language'] = accept_language
