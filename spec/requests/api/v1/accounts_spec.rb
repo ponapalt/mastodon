@@ -251,6 +251,24 @@ RSpec.describe '/api/v1/accounts' do
       end
     end
 
+    context 'when signing up for approval from an application with a blocked name' do
+      subject do
+        Setting.registrations_mode = 'approved'
+        post '/api/v1/accounts', headers: headers, params: { username: 'test', password: '12345678', email: 'hello@world.tld', agreement: 'true', reason: 'I would like to join' }
+      end
+
+      let(:client_app) { Fabricate(:application, name: 'Best SEO Tool') }
+
+      it 'returns http unprocessable entity and creates no user' do
+        expect { subject }
+          .to not_change(User, :count)
+          .and not_change(Account, :count)
+          .and not_change(UserInviteRequest, :count)
+
+        expect(response).to have_http_status(422)
+      end
+    end
+
     context 'when given no agreement' do
       it 'returns http unprocessable entity' do
         subject
