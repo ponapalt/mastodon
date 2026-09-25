@@ -14,6 +14,37 @@
 class UserInviteRequest < ApplicationRecord
   TEXT_SIZE_LIMIT = 420
 
+  # Keyword sets only ever seen together in reasons from automated sign-up
+  # probes. A sign-up whose reason contains every keyword of any one set,
+  # in any order, is rejected during validation, so no account, invite
+  # request or notification e-mail is ever created for it
+  BLOCKED_KEYWORD_SETS = [
+    %w(deliverability probe),
+    %w(automated account),
+  ].freeze
+
+  # Case-sensitive substrings of the name of the application used to sign
+  # up through the API that only ever appear in automated sign-ups
+  BLOCKED_APP_NAME_SUBSTRINGS = %w(
+    SEO
+  ).freeze
+
   belongs_to :user, inverse_of: :invite_request
   validates :text, presence: true, length: { maximum: TEXT_SIZE_LIMIT }
+  validate :validate_text_not_blocked, on: :create
+  validate :validate_app_not_blocked, on: :create
+
+  private
+
+  def validate_text_not_blocked
+    normalized_text = text.to_s.downcase
+
+    errors.add(:text, :invalid) if BLOCKED_KEYWORD_SETS.any? { |keywords| keywords.all? { |keyword| normalized_text.include?(keyword) } }
+  end
+
+  def validate_app_not_blocked
+    app_name = (user&.created_by_application&.name).to_s
+
+    errors.add(:text, :invalid) if BLOCKED_APP_NAME_SUBSTRINGS.any? { |substring| app_name.include?(substring) }
+  end
 end
