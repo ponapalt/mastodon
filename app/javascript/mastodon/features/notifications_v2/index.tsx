@@ -310,6 +310,14 @@ export const Notifications: React.FC<{
           withBackButton={multiColumn && !pinned && 'auto'}
           extraButtons={
             <>
+              {canMarkAsRead && (
+                <ColumnHeaderButton
+                  icon={ChecksIcon}
+                  onClick={handleMarkAsRead}
+                >
+                  {intl.formatMessage(messages.markAsReadRedesign)}
+                </ColumnHeaderButton>
+              )}
               <ColumnHeaderButton icon={GearIcon} onClick={openSettingsModal}>
                 <FormattedMessage
                   id='notifications.open_settings'
