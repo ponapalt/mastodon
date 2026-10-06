@@ -1361,6 +1361,11 @@ ja:
       your_appeal_rejected: 申し立ては拒否されました
   edit_profile:
     other: その他
+    # TEMPORARY: redesign 用の暫定訳。upstream (Crowdin) の ja 訳が降ってきたら置き換える
+    privacy_redesign_body: フォローとフォロワーを表示するかどうかは、プロフィールから直接選べるようになりました。
+    redesign_body: プロフィールの編集は、プロフィールページから直接開けるようになりました。
+    redesign_button: 移動する
+    redesign_title: プロフィール編集が新しくなりました
   emoji_styles:
     auto: 自動
     native: ネイティブ
