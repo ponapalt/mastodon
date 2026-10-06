@@ -1,5 +1,9 @@
 @use '@/styles/mastodon/variables';
 
+// Stacks above the navigation panel (z-index up to 100) and the sticky
+// column headers, which the composer overlaps in the top left corner.
+$composer-desktop-z-index: 150;
+
 .buttonWrapper {
   position: relative;
 
@@ -39,12 +43,13 @@
   transition: bottom 200ms ease-in-out;
 
   @media (width >= #{variables.$mobile-menu-breakpoint}) {
-    top: auto;
+    // Anchored to the top left corner on larger screens
+    top: 0;
+    right: auto;
+    left: 0;
+    bottom: auto;
+    --composer-z-index: #{$composer-desktop-z-index}; // consumed by `.root`
 
-    // To account for Safari shenanigans, we take the device viewport height,
-    // and subtract the height from the visualViewport API.
-    // This accounts for the float shortcut bar that appears.
-    bottom: calc(100dvh - var(--viewport-height, 100vh));
     min-height: 270px;
     height: auto;
     max-height: calc(100vh - (var(--space-4) * 2));
@@ -68,13 +73,20 @@
 }
 
 .composerMinimized {
-  bottom: 0;
+  // Anchored to the top left corner on larger screens
+  top: 0;
+  right: auto;
+  left: 0;
+  z-index: $composer-desktop-z-index;
   width: min(320px, calc(100vw - var(--space-4) * 2));
   padding: var(--space-4);
   margin: var(--space-4);
   border-radius: var(--radius-6);
 
   @media (width < #{variables.$mobile-menu-breakpoint}) {
+    top: auto;
+    right: 0;
+    left: auto;
     bottom: var(--mobile-bottom-nav-height);
     width: auto;
     padding: 0;

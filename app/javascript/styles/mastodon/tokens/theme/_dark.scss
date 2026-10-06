@@ -1,16 +1,18 @@
 @use 'utils';
 
+// The indigo base uses the indigo hues at half their chroma (in OKLCH), so
+// the UI stays tinted but looks calmer than the shared indigo palette.
 @mixin base-indigo {
-  --base-color-bg: var(--color-indigo-950);
+  --base-color-bg: #0e0d22; // indigo-950, desaturated
   --base-color-bg-desktop: #0e0a1f;
-  --base-color-fg: var(--color-indigo-50);
+  --base-color-fg: #f8f7fa; // indigo-50, desaturated
   --base-color-fg-on-accent: var(--base-color-bg);
-  --base-color-accent: var(--color-indigo-300);
+  --base-color-accent: #b0accd; // indigo-300, desaturated
   --base-color-danger: var(--color-red-200);
   --base-highlight-strength: 8%;
 }
 @mixin base-indigo-contrast {
-  --base-color-accent: var(--color-indigo-200);
+  --base-color-accent: #d0cde1; // indigo-200, desaturated
 }
 
 @mixin base-lime {
@@ -41,7 +43,7 @@
   ); // legacy
 
   --color-text-on-brand-base: var(--base-color-fg-on-accent);
-  --color-text-brand-on-inverted: var(--color-indigo-600); // legacy
+  --color-text-brand-on-inverted: #555295; // legacy, indigo-600 desaturated
   --color-text-error: var(--base-color-danger);
   --color-text-on-error-base: var(--color-text-inverted);
   --color-text-warning: var(--color-orange-400); // legacy
@@ -112,7 +114,7 @@
   --color-border-strong: var(--base-color-fg);
   --color-border-input: #{utils.css-alpha(var(--base-color-fg), 70%)};
   --color-border-brand: var(--color-text-brand); // legacy
-  --color-border-brand-soft: var(--color-indigo-800); // legacy
+  --color-border-brand-soft: #32305d; // legacy, indigo-800 desaturated
   --color-border-error: var(--color-red-300); // legacy
   --color-border-media: rgb(252 248 255 / 15%); // legacy
   --color-border-error-soft: #{utils.css-alpha(var(--color-border-error), 50%)}; // legacy
