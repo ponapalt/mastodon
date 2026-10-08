@@ -5,9 +5,11 @@
   --navigation-width: 320px;
   --search-column-width: 320px;
 
-  // This grid definition is shared with the composer
-  --columns-area-grid-columns: minmax(var(--navigation-width), 1fr)
-    minmax(0, var(--main-column-max-width)) minmax(0, 1fr);
+  // This grid definition is shared with the composer, so that it lines up
+  // with the main column. The search column track matches `.discoveryWrapper`,
+  // which is hidden at narrower widths.
+  --columns-area-grid-columns: var(--navigation-width) minmax(0, 1fr)
+    var(--search-column-width);
 
   display: flex;
   flex-direction: column;
@@ -18,9 +20,18 @@
   min-height: 100dvh;
   padding-bottom: env(safe-area-inset-bottom);
 
+  @media (width <= 1200px) {
+    --columns-area-grid-columns: var(--navigation-width) minmax(0, 1fr);
+  }
+
   @media (min-width: $mobile-menu-breakpoint) {
     display: grid;
-    grid-template-columns: var(--columns-area-grid-columns);
+    grid-template-columns:
+      var(--navigation-width)
+      minmax(0, 1fr);
+    // The search column is only created when it is actually rendered,
+    // so the main column can take up the remaining width otherwise
+    grid-auto-columns: var(--search-column-width);
   }
 }
 
@@ -28,6 +39,13 @@
   // In `minimalShell` layout, no sidebar navigation is shown,
   // so we allow the column to collapse
   --navigation-width: 0;
+
+  @media (min-width: $mobile-menu-breakpoint) {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, var(--main-column-max-width))
+      minmax(0, 1fr);
+  }
 }
 
 .multiColumnRoot {
@@ -72,6 +90,7 @@
 }
 
 .discoveryWrapper {
+  grid-column: 3;
   max-width: var(--search-column-width);
   padding: var(--space-5) var(--space-4) var(--space-6);
 
@@ -81,6 +100,10 @@
 }
 
 .main {
+  // The column stretches to fill the window, so keep media from
+  // growing too large along with it
+  --max-media-width: 600px;
+
   box-sizing: border-box;
   grid-column: 2;
   display: flex;
@@ -97,5 +120,13 @@
     overflow: visible;
     border: none;
     border-radius: 0;
+  }
+
+  :global(.media-gallery),
+  :global(.video-player),
+  :global(.audio-player),
+  :global(.picture-in-picture-placeholder),
+  :global(.status-card) {
+    max-width: min(100%, var(--max-media-width));
   }
 }
