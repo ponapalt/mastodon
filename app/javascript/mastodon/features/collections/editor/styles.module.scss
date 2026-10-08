@@ -1,3 +1,5 @@
+@use '@/styles/mastodon/variables';
+
 .header {
   display: flex;
   flex-direction: column;
@@ -34,7 +36,7 @@
 
   padding-bottom: 0;
 
-  @media (width < 760px) {
+  @media (width < variables.$mobile-menu-breakpoint) {
     --bottom-spacing: var(--mobile-bottom-nav-height);
   }
 }

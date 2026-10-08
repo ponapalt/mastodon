@@ -3388,7 +3388,7 @@ a.account__display-name {
   }
 }
 
-@media screen and (width <= 759px) {
+@media screen and (width < $mobile-menu-breakpoint) {
   .columns-area__panels__main {
     width: 100%;
   }
@@ -3442,7 +3442,7 @@ a.account__display-name {
   }
 }
 
-@media screen and (width >= 760px) {
+@media screen and (width >= $mobile-menu-breakpoint) {
   .ui__navigation-bar {
     display: none;
   }
