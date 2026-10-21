@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 
-import { Column } from '@/mastodon/components/column';
 import { ComposeButton } from '@/mastodon/features/compose/trigger';
 import { DiscoveryPanel } from '@/mastodon/features/discovery_panel';
 import { RedesignNavigationPanel } from '@/mastodon/features/navigation_panel/redesign';
@@ -58,10 +57,6 @@ export const ColumnsArea: React.FC<{
       </div>
       <ComposeButton />
       <MultiColumnContent>{children}</MultiColumnContent>
-
-      <Column className={multiColClasses.discoveryColumn}>
-        <DiscoveryPanel />
-      </Column>
     </main>
   );
 };
