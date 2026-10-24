@@ -31,7 +31,7 @@ module Extractor
   # xmpp: and magnet: URIs are handled by separate small extractors
   # below.
   def extract_urls_with_indices(text, options = {})
-    UTS58.extract_urls_with_indices(text, options)
+    reject_prose_prefixed_urls(text, UTS58.extract_urls_with_indices(text, options))
   end
 
   def remove_overlapping_entities(entities)
@@ -158,6 +158,21 @@ module Extractor
       next unless url.match?(/[?&]xt=/)
 
       { url: url, indices: [match.begin(0), match.begin(0) + url.length] }
+    end
+  end
+
+  # UTS58 accepts U+3002 as a label separator, so for "今日は晴れ。example.com"
+  # it reports both "example.com" and a candidate that starts at the beginning
+  # of the sentence (host "今日は晴れ.example.com") and ends at the same place.
+  # Overlap resolution prefers the earlier start, which would turn the whole
+  # sentence into a link. For a scheme-less candidate, the later one that ends
+  # in the same place is the actual link, so drop the one carrying the prose.
+  def reject_prose_prefixed_urls(text, entities)
+    entities.reject do |entity|
+      first, last = entity[:indices]
+
+      !text[first...last].match?(%r{\Ahttps?://}i) &&
+        entities.any? { |other| other[:indices].first > first && other[:indices].last == last }
     end
   end
 end

@@ -141,6 +141,34 @@ RSpec.describe Extractor do
     end
   end
 
+  describe '#extract_urls_with_indices' do
+    subject { described_class.extract_urls_with_indices(text) }
+
+    context 'when a scheme-less domain follows a sentence ending in an ideographic full stop' do
+      let(:text) { '今日はいい天気ですね。example.com を見てね' }
+
+      it 'links only the domain, not the preceding sentence' do
+        expect(subject).to contain_exactly({ url: 'https://example.com', indices: [11, 22] })
+      end
+    end
+
+    context 'when a scheme-less domain with a path follows an ideographic full stop' do
+      let(:text) { '本日の更新。example.com/foo も見てね' }
+
+      it 'links only the domain and path' do
+        expect(subject).to contain_exactly({ url: 'https://example.com/foo', indices: [6, 21] })
+      end
+    end
+
+    context 'when a URL with a scheme follows an ideographic full stop' do
+      let(:text) { '今日はいい天気ですね。https://example.com/foo' }
+
+      it 'links the URL' do
+        expect(subject).to contain_exactly({ url: 'https://example.com/foo', indices: [11, 34] })
+      end
+    end
+  end
+
   describe 'extract_xmpp_uris_with_indices' do
     it 'returns an empty array when the text contains no xmpp: scheme' do
       expect(described_class.extract_xmpp_uris_with_indices('no xmpp here')).to eq []

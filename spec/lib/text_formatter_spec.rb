@@ -87,6 +87,15 @@ RSpec.describe TextFormatter do
       end
     end
 
+    context 'when given a scheme-less domain after a Japanese sentence ending in a full stop' do
+      let(:text) { '今日はいい天気ですね。example.com を見てね' }
+
+      it 'keeps the sentence as plain text and links only the domain' do
+        expect(subject).to include '今日はいい天気ですね。<a href="https://example.com"'
+        expect(subject).to include '</a> を見てね'
+      end
+    end
+
     context 'when given a stand-alone IDN URL' do
       let(:text) { 'https://nic.みんな/' }
 
